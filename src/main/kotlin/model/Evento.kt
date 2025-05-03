@@ -2,6 +2,7 @@ package es.prog2425.taskmanager.model
 
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.logging.Logger
 
 class Evento private constructor(
     descripcion: String,
@@ -9,6 +10,8 @@ class Evento private constructor(
     private val ubicacion: String
 ) : Actividad(descripcion) {
     companion object {
+        private val logger = Logger.getLogger("MiLogger")
+
         fun creaInstancia(descripcion: String, fecha: String, ubicacion: String, etiquetas: String = ""): Evento {
             require(validarFecha(fecha)) { "La fecha debe de ser válida" }
             require(ubicacion.isNotBlank()) { "La ubicación no puede estar en blanco" }
@@ -20,9 +23,11 @@ class Evento private constructor(
         }
         private fun validarFecha(fecha: String): Boolean {
             return try {
-                LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                logger.info("Intentando validar la fecha: $fecha")
+                LocalDate.parse(fecha, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
                 true
             } catch (e: Exception) {
+                logger.severe("Error al validar fecha: ${e.message}")
                 false
             }
         }
