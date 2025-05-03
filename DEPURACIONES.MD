@@ -116,9 +116,7 @@ private fun generarId(fecha: String): Int {
 Modificaremos la función privada `validarFecha(fecha)` con el fin de simular un error sobre un formato incorrecto entre fechas; la fecha que recibe el método tendrá un formato diferente al que se pedirá en este.
 
 #### `Evento.kt` (con el error incorporado)
-```
-package es.prog2425.taskmanager.model
-
+```kotlin
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
