@@ -177,10 +177,10 @@ Un error inesperado sucede al intentar crear un evento. Cuando intentamos crear 
 
 * IntelliJ IDEA para escribir, ejecutar y depurar el código.
 * Depurador del IDE: Uso de puntos de ruptura, inspección de variables y seguimiento de la pila de llamadas.
-[Punto de Ruptura 1](images/debug1/Captura de pantalla 2025-05-03 171830.png)
-[Punto de Ruptura 2](images/debug1/Captura de pantalla 2025-05-03 171904.png)
+[Punto de Ruptura 1](images/debug1/Captura%20de%20pantalla%202025-05-03%20171830.png)
+[Punto de Ruptura 2](images/debug1/Captura%20de%20pantalla%202025-05-03%20171904.png)
 * java.util.logging.Logger para registrar eventos, errores y valores en tiempo real durante la ejecución de la función.
-[Logger implementado](images/debug1/Captura de pantalla 2025-05-03 171129.png)
+[Logger implementado](images/debug1/Captura%20de%20pantalla%202025-05-03%20171129.png)
 * Documentación oficial de Kotlin para confirmar el patrón correcto de `DateTimeFormatter` y el uso correcto de `parse`.
 
 ---
