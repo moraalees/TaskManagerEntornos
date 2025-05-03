@@ -170,3 +170,12 @@ Un error inesperado sucede al intentar crear un evento. Cuando intentamos crear 
 * Se establecieron breakpoints en la función `validarFecha(fecha)`, con especial atención en la línea donde se llama a `LocalDate.parse()`, para observar la entrada fecha y analizar si el patrón coincidía entre el que se pide en el método con el que recibía.
 * Se inspeccionaron los valores de las variables fecha y la excepción capturada en el bloque catch mediante el depurador del IDE.
 * Se ejecutó la aplicación en modo depuración varias veces introduciendo diferentes formatos de fecha (yyyy-MM-dd, dd/MM/yyyy) para comprobar y estudiar el comportamiento del programa y poder así encontrar el error.
+
+---
+
+#### **Herramientas empleadas**
+
+* IntelliJ IDEA para escribir, ejecutar y depurar el código.
+* Depurador del IDE: Uso de puntos de ruptura, inspección de variables y seguimiento de la pila de llamadas.
+* java.util.logging.Logger para registrar eventos, errores y valores en tiempo real durante la ejecución de la función.
+* Documentación oficial de Kotlin para confirmar el patrón correcto de `DateTimeFormatter` y el uso correcto de `parse`.
