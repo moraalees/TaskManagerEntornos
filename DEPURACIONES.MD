@@ -188,7 +188,7 @@ Un error inesperado sucede al intentar crear un evento. Cuando intentamos crear 
 2. Para analizar el problema, se añadió logging con Logger para comprobar qué valor de fecha se estaba intentando validar. Al observar los logs y detener la ejecución con breakpoints, se confirmó que el valor era correcto, pero el parse fallaba.
 3. Al inspeccionar la línea que parseaba la fecha, se detectó que el patrón usado era dd/MM/yyyy, lo cual no coincidía con el formato real de entrada. Esto generaba una excepción `DateTimeParseException`.
 4. Se corrigió el patrón por el formato adecuado (yyyy-MM-dd), se repitieron las pruebas y se confirmó que el valor de retorno pasaba a ser true en fechas válidas.
-5. Finalmente, se validó el funcionamiento con varios casos de prueba, tanto válidos como inválidos, para asegurar el comportamiento esperado.
+5. Finalmente, se validó el funcionamiento con varios casos de prueba para asegurar el comportamiento esperado y así corregir el error.
 ```kotlin
 private val logger = Logger.getLogger("MiLogger")
 private fun validarFecha(fecha: String): Boolean {
@@ -202,3 +202,13 @@ private fun validarFecha(fecha: String): Boolean {
     }
 }
 ```
+
+---
+
+#### Conclusiones
+
+* Gracias a esta actividad he captado la importancia de validar correctamente los formatos de entrada, especialmente al trabajar con fechas y datos estructurados que se manejan con formatos específicos.
+* El uso de la importación de `Logger` me ha permitido seguir el flujo de ejecución y detectar el origen del problema sin necesidad de apagar el programa.
+* El modo de depuración y los breakpoints han ayudado significativamente para inspeccionar el estado de las variables y comprender por qué el código no se comportaba como se esperaba.
+* No sabía de la existencia de la documentación oficial de Kotlin, ya que nunca había oído de ella. Para este error, me ayudó mucho a no comerme la cabeza e ir directamente a buscar cuál era el formato correcto de la fecha.
+* Finalmente, comprobé que hay veces los errores no están en la lógica general, como suele ser normal, sino en cosas como un patrón de formato incorrecto, lo que resalta la importancia de revisar y probar con distintos casos y, en este caso, formatos.
