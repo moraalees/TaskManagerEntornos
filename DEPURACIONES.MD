@@ -153,3 +153,11 @@ class Evento private constructor(
     }
 }
 ```
+
+---
+
+### **2. Depuración del código**
+
+#### Incidencia
+
+Un error inesperado sucede al intentar crear un evento. Cuando intentamos crear una actividad se nos pregunta si queremos que sea una `Tarea` o un `Evento`. Cuando escogemos `Evento`, se nos pedirá ingresar una descripción, una ubicación y unas etiquetas. Sin embargo, tras ingresar todos estos datos, salta un error que nos informa de que la fecha es inválida.
