@@ -307,7 +307,7 @@ class Tarea private constructor(descripcion: String) : Actividad(descripcion) {
 
 ---
 
-## 2. Informe de depuración
+## 4. Informe de depuración
 
 ### **Incidencia**
 
@@ -358,3 +358,102 @@ fun tieneSubtareasAbiertas(): Boolean {
 - El uso de `Logger` facilitó el seguimiento del flujo sin detener la ejecución.
 - El depurador fue útil para validar el contenido y estado de listas internas como `subtareas`.
 - Se reafirma la importancia de usar patrones de diseño como **Observer** o **Composite** cuando hay estructuras jerárquicas (tarea → subtareas).
+
+
+### **2. Depuración del código**
+
+#### Incidencia
+
+Al intentar crear un evento desde la consola, el programa lanza una excepción inesperada. Después de introducir correctamente la descripción, la ubicación y la fecha en el formato `yyyy-MM-dd`, el programa se bloquea mostrando un error de tipo `NumberFormatException`, lo cual me sorprendió porque a simple vista parecía que la fecha estaba bien validada.
+
+---
+
+#### Técnicas de depuración implementadas
+
+* Lo primero que hice fue fijarme bien en el mensaje de error completo (el stack trace), que indicaba un fallo al intentar convertir una cadena a número.
+* Después revisé todo el constructor de la clase `Evento` por si había alguna conversión rara, especialmente con la fecha.
+* Coloqué puntos de ruptura (breakpoints) en la zona donde se crea la instancia de `Evento` y también dentro del constructor, para ver el contenido de las variables en tiempo real.
+* Comprobé varias veces la función `validarFecha(fecha)` y confirmé que no era el origen del problema, ya que estaba correctamente manejada con `LocalDate.parse()` y el patrón correcto.
+
+---
+
+#### Herramientas empleadas
+
+* IntelliJ IDEA como entorno de desarrollo.
+* Depurador del IDE para seguir paso a paso la ejecución y ver el estado de cada variable.
+* `Logger` para registrar los intentos de validación de fecha, aunque en este caso la validación no era el fallo.
+* Documentación de Kotlin para comprobar qué hace exactamente `.toInt()` y cómo trata cadenas que no son números puros.
+
+---
+
+#### Proceso del análisis y hallar la solución
+
+1. Al revisar el código del constructor `Evento`, encontré una línea como esta:
+
+   ```kotlin
+   private val fechaNumerica: Int = fecha.toInt()
+Me di cuenta de que eso no tenía sentido, ya que la variable fecha es un String en formato "yyyy-MM-dd", que incluye guiones y por tanto no puede convertirse directamente en número entero.
+
+Al hacer esa conversión, el programa lanzaba una NumberFormatException, ya que "2025-05-03" no es un número válido.
+
+La solución fue eliminar directamente esa línea innecesaria, ya que no se usaba para nada más adelante. Si por algún motivo se quisiera trabajar con fechas como objeto, lo correcto sería parsearla así:
+
+kotlin
+Copiar
+Editar
+private val fechaObjeto: LocalDate = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+Probé de nuevo el programa y esta vez ya no se produjo ningún error al crear el evento.
+
+Código corregido
+kotlin
+Copiar
+Editar
+class Evento private constructor(
+    descripcion: String,
+    val fecha: String,
+    private val ubicacion: String
+) : Actividad(descripcion) {
+    // Línea errónea eliminada: fecha.toInt()
+    // Sustituible por esta si se necesita usar la fecha como objeto:
+    // private val fechaObjeto: LocalDate = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+
+    companion object {
+        private val logger = Logger.getLogger("MiLogger")
+
+        fun creaInstancia(descripcion: String, fecha: String, ubicacion: String, etiquetas: String = ""): Evento {
+            require(validarFecha(fecha)) { "La fecha debe de ser válida" }
+            require(ubicacion.isNotBlank()) { "La ubicación no puede estar en blanco" }
+            val evento = Evento(descripcion, fecha, ubicacion)
+            if (etiquetas.isNotBlank()) {
+                evento.agregarEtiquetas(etiquetas)
+            }
+            return evento
+        }
+
+        private fun validarFecha(fecha: String): Boolean {
+            return try {
+                logger.info("Intentando validar la fecha: $fecha")
+                LocalDate.parse(fecha, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                true
+            } catch (e: Exception) {
+                logger.severe("Error al validar fecha: ${e.message}")
+                false
+            }
+        }
+    }
+
+    override fun obtenerDetalle(): String {
+        val etiquetasStr = if (obtenerEtiquetas().isNotEmpty()) {
+            " - Etiquetas: ${obtenerEtiquetas().joinToString(", ")}"
+        } else ""
+        return "Evento $id - $descripcion [Fecha: $fecha, Ubicación: $ubicacion]$etiquetasStr"
+    }
+}
+Conclusiones
+Esta incidencia me enseñó que a veces los errores no vienen del código que uno piensa, sino de pequeñas cosas como una conversión innecesaria o un tipo mal usado.
+
+Gracias al uso del stack trace y el depurador del IDE pude seguir el rastro del error y llegar al origen real rápidamente.
+
+También aprendí que no basta con validar correctamente los datos: hay que asegurarse de que no se manipulan de forma incorrecta después.
+
+Por último, esta experiencia me ayudó a entender mejor cómo manejar fechas en Kotlin y me familiaricé más con el uso de LocalDate, DateTimeFormatter y el manejo de excepciones.

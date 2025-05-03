@@ -1,14 +1,10 @@
-package es.prog2425.taskmanager.model
-
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.logging.Logger
-
 class Evento private constructor(
     descripcion: String,
-    val fecha: String,
+    fecha: String,
     private val ubicacion: String
 ) : Actividad(descripcion) {
+    private val fechaNumerica: Int = fecha.toInt() 
+
     companion object {
         private val logger = Logger.getLogger("MiLogger")
 
@@ -21,6 +17,7 @@ class Evento private constructor(
             }
             return evento
         }
+
         private fun validarFecha(fecha: String): Boolean {
             return try {
                 logger.info("Intentando validar la fecha: $fecha")
@@ -32,6 +29,7 @@ class Evento private constructor(
             }
         }
     }
+
     override fun obtenerDetalle(): String {
         val etiquetasStr = if (obtenerEtiquetas().isNotEmpty()) {
             " - Etiquetas: ${obtenerEtiquetas().joinToString(", ")}"
