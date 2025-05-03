@@ -108,3 +108,8 @@ private fun generarId(fecha: String): Int {
 
 ---
 
+# Depuración número 2
+---
+
+### 1. Código actualizado con un bug real simulado en [Evento]
+(https://github.com/moraalees/TaskManagerEntornos/blob/main/src/main/kotlin/model/Evento.kt)**
