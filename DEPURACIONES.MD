@@ -108,3 +108,74 @@ private fun generarId(fecha: String): Int {
 
 ---
 
+# Depuración número 2
+---
+
+### 1. Código actualizado con un bug real simulado en [Evento](src/main/kotlin/model/Evento.kt)
+
+Modificaremos la función privada `validarFecha(fecha)` con el fin de simular un error sobre un formato incorrecto entre fechas; la fecha que recibe el método tendrá un formato diferente al que se pedirá en este.
+
+#### `Evento.kt` (con el error incorporado)
+```kotlin
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+
+class Evento private constructor(
+    descripcion: String,
+    val fecha: String,
+    private val ubicacion: String
+) : Actividad(descripcion) {
+
+    companion object {
+        fun creaInstancia(descripcion: String, fecha: String, ubicacion: String, etiquetas: String = ""): Evento {
+            require(validarFecha(fecha)) { "La fecha debe de ser válida" }
+            require(ubicacion.isNotBlank()) { "La ubicación no puede estar en blanco" }
+            val evento = Evento(descripcion, fecha, ubicacion)
+            if (etiquetas.isNotBlank()) {
+                evento.agregarEtiquetas(etiquetas)
+            }
+            return evento
+        }
+        private fun validarFecha(fecha: String): Boolean {
+            return try {
+                LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                true
+            } catch (e: Exception) {
+                false
+            }
+        }
+    }
+    override fun obtenerDetalle(): String {
+        val etiquetasStr = if (obtenerEtiquetas().isNotEmpty()) {
+            " - Etiquetas: ${obtenerEtiquetas().joinToString(", ")}"
+        } else ""
+        return "Evento $id - $descripcion [Fecha: $fecha, Ubicación: $ubicacion]$etiquetasStr"
+    }
+}
+```
+
+---
+
+### **2. Depuración del código**
+
+#### **Incidencia**
+
+Un error inesperado sucede al intentar crear un evento. Cuando intentamos crear una actividad se nos pregunta si queremos que sea una `Tarea` o un `Evento`. Cuando escogemos `Evento`, se nos pedirá ingresar una descripción, una ubicación y unas etiquetas. Sin embargo, tras ingresar todos estos datos, salta un error que nos informa de que la fecha es inválida.
+
+---
+
+#### **Técnicas de depuración implementadas**
+
+* Se utilizó `java.util.logging.Logger` para registrar los intentos de validación de fechas y los posibles errores al parsear.
+* Se establecieron breakpoints en la función `validarFecha(fecha)`, con especial atención en la línea donde se llama a `LocalDate.parse()`, para observar la entrada fecha y analizar si el patrón coincidía entre el que se pide en el método con el que recibía.
+* Se inspeccionaron los valores de las variables fecha y la excepción capturada en el bloque catch mediante el depurador del IDE.
+* Se ejecutó la aplicación en modo depuración varias veces introduciendo diferentes formatos de fecha (yyyy-MM-dd, dd/MM/yyyy) para comprobar y estudiar el comportamiento del programa y poder así encontrar el error.
+
+---
+
+#### **Herramientas empleadas**
+
+* IntelliJ IDEA para escribir, ejecutar y depurar el código.
+* Depurador del IDE: Uso de puntos de ruptura, inspección de variables y seguimiento de la pila de llamadas.
+* java.util.logging.Logger para registrar eventos, errores y valores en tiempo real durante la ejecución de la función.
+* Documentación oficial de Kotlin para confirmar el patrón correcto de `DateTimeFormatter` y el uso correcto de `parse`.
