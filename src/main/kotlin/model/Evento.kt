@@ -20,7 +20,7 @@ class Evento private constructor(
         }
         private fun validarFecha(fecha: String): Boolean {
             return try {
-                LocalDate.parse(fecha, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd/MM/yyyy"))
                 true
             } catch (e: Exception) {
                 false
