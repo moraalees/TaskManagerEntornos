@@ -348,6 +348,7 @@ El método `tieneSubtareasAbiertas()` fue reforzado para garantizar que siempre 
 fun tieneSubtareasAbiertas(): Boolean {
     return subtareas.any { it.estado != Estado.FINALIZADA }
 }
+```
 
 ---
 
