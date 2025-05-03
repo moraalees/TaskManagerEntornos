@@ -1,7 +1,7 @@
 # Depuración número 1
 ---
 
-### **1. Código actualizado con un bug real simulado**
+### **1. Código actualizado con un bug real simulado en [Actividad](https://github.com/moraalees/TaskManagerEntornos/blob/main/src/main/kotlin/model/Actividad.kt)**
 
 Simularemos un error: el método `generarId()` depende solo de un contador estático (`ultimoId`), lo que puede provocar **IDs duplicados si se reinicia la aplicación**. Vamos a suponer que queremos generar IDs únicos por fecha (`fechaCreacion`) también, pero el método actual no lo hace correctamente.
 
