@@ -158,13 +158,13 @@ class Evento private constructor(
 
 ### **2. Depuración del código**
 
-#### **Incidencia**
+#### Incidencia
 
 Un error inesperado sucede al intentar crear un evento. Cuando intentamos crear una actividad se nos pregunta si queremos que sea una `Tarea` o un `Evento`. Cuando escogemos `Evento`, se nos pedirá ingresar una descripción, una ubicación y unas etiquetas. Sin embargo, tras ingresar todos estos datos, salta un error que nos informa de que la fecha es inválida.
 
 ---
 
-#### **Técnicas de depuración implementadas**
+#### Técnicas de depuración implementadas
 
 * Se utilizó `java.util.logging.Logger` para registrar los intentos de validación de fechas y los posibles errores al parsear.
 * Se establecieron breakpoints en la función `validarFecha(fecha)`, con especial atención en la línea donde se llama a `LocalDate.parse()`, para observar la entrada fecha y analizar si el patrón coincidía entre el que se pide en el método con el que recibía.
@@ -173,9 +173,32 @@ Un error inesperado sucede al intentar crear un evento. Cuando intentamos crear 
 
 ---
 
-#### **Herramientas empleadas**
+#### Herramientas empleadas
 
 * IntelliJ IDEA para escribir, ejecutar y depurar el código.
 * Depurador del IDE: Uso de puntos de ruptura, inspección de variables y seguimiento de la pila de llamadas.
 * java.util.logging.Logger para registrar eventos, errores y valores en tiempo real durante la ejecución de la función.
 * Documentación oficial de Kotlin para confirmar el patrón correcto de `DateTimeFormatter` y el uso correcto de `parse`.
+
+---
+
+#### Proceso del análisis y hallar la solución
+
+1. Inicialmente, la función `validarFecha(fecha)` estaba devolviendo `false` incluso cuando se introducían fechas en formato correcto (yyyy-MM-dd).
+2. Para analizar el problema, se añadió logging con Logger para comprobar qué valor de fecha se estaba intentando validar. Al observar los logs y detener la ejecución con breakpoints, se confirmó que el valor era correcto, pero el parse fallaba.
+3. Al inspeccionar la línea que parseaba la fecha, se detectó que el patrón usado era dd/MM/yyyy, lo cual no coincidía con el formato real de entrada. Esto generaba una excepción `DateTimeParseException`.
+4. Se corrigió el patrón por el formato adecuado (yyyy-MM-dd), se repitieron las pruebas y se confirmó que el valor de retorno pasaba a ser true en fechas válidas.
+5. Finalmente, se validó el funcionamiento con varios casos de prueba, tanto válidos como inválidos, para asegurar el comportamiento esperado.
+```kotlin
+private val logger = Logger.getLogger("MiLogger")
+private fun validarFecha(fecha: String): Boolean {
+    return try {
+        logger.info("Intentando validar la fecha: $fecha")
+        LocalDate.parse(fecha, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+        true
+    } catch (e: Exception) {
+        logger.severe("Error al validar fecha: ${e.message}")
+        false
+    }
+}
+```
