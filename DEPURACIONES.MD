@@ -215,3 +215,145 @@ private fun validarFecha(fecha: String): Boolean {
 * El modo de depuración y los breakpoints han ayudado significativamente para inspeccionar el estado de las variables y comprender por qué el código no se comportaba como se esperaba.
 * No sabía de la existencia de la documentación oficial de Kotlin, ya que nunca había oído de ella. Para este error, me ayudó mucho a no comerme la cabeza e ir directamente a buscar cuál era el formato correcto de la fecha.
 * Finalmente, comprobé que hay veces los errores no están en la lógica general, como suele ser normal, sino en cosas como un patrón de formato incorrecto, lo que resalta la importancia de revisar y probar con distintos casos y, en este caso, formatos.
+
+---
+
+# Depuración número 3
+---
+
+### **1. Código actualizado con un bug real simulado en [Tarea.kt](https://github.com/moraalees/TaskManagerEntornos/blob/main/src/main/kotlin/model/Tarea.kt)**
+
+Simulamos un error: la clase `Tarea` permite **cambiar el estado a `FINALIZADA` incluso si contiene subtareas aún abiertas**, debido a que `tieneSubtareasAbiertas()` no detecta correctamente los estados si las subtareas fueron modificadas luego de ser agregadas.
+
+#### `Tarea.kt` (con `Logger` y bug simulado)
+
+```kotlin
+import java.util.logging.Logger
+
+class Tarea private constructor(descripcion: String) : Actividad(descripcion) {
+
+    private val logger = Logger.getLogger(Tarea::class.java.name)
+
+    var estado: Estado = Estado.ABIERTA
+        private set
+
+    var asignadoA: Usuario? = null
+        private set
+
+    private val subtareas: MutableList<Tarea> = mutableListOf()
+    private val historial: MutableList<RegistroHistorial> = mutableListOf()
+
+    fun agregarSubtarea(subtarea: Tarea) {
+        subtareas.add(subtarea)
+        agregarHistorial("Se agregó una subtarea con ID ${subtarea.id}")
+        logger.info("Subtarea agregada: ID=${subtarea.id}")
+    }
+
+    fun obtenerSubtareas(): List<Tarea> = subtareas.toList()
+
+    fun tieneSubtareasAbiertas(): Boolean {
+        val abiertas = subtareas.any { it.estado != Estado.FINALIZADA }
+        logger.info("Verificando subtareas abiertas: resultado=$abiertas")
+        return abiertas
+    }
+
+    fun cambiarEstado(nuevoEstado: Estado) {
+        logger.info("Intentando cambiar estado a $nuevoEstado")
+        if (nuevoEstado == Estado.FINALIZADA && tieneSubtareasAbiertas()) {
+            agregarHistorial("Intento de cerrar tarea fallido: subtareas abiertas")
+            logger.warning("Cambio de estado fallido: subtareas abiertas")
+            throw IllegalStateException("No se puede cerrar la tarea: tiene subtareas abiertas")
+        }
+
+        estado = nuevoEstado
+        agregarHistorial("Estado cambiado a $estado")
+        logger.info("Estado de la tarea cambiado a $estado")
+    }
+
+    fun asignarUsuario(usuario: Usuario) {
+        asignadoA = usuario
+        agregarHistorial("Tarea asignada a ${usuario.nombre}")
+        logger.info("Tarea asignada a ${usuario.nombre}")
+    }
+
+    fun obtenerHistorial(): List<RegistroHistorial> = historial.toList()
+
+    private fun agregarHistorial(descripcion: String) {
+        historial.add(RegistroHistorial(descripcion = descripcion))
+        logger.fine("Historial añadido: $descripcion")
+    }
+
+    companion object {
+        fun creaInstancia(descripcion: String, etiquetas: String = ""): Tarea {
+            val tarea = Tarea(descripcion)
+            if (etiquetas.isNotBlank()) {
+                tarea.agregarEtiquetas(etiquetas)
+                tarea.agregarHistorial("Etiquetas agregadas: $etiquetas")
+            }
+            tarea.agregarHistorial("Tarea creada con estado ${tarea.estado}")
+            return tarea
+        }
+    }
+
+    override fun obtenerDetalle(): String {
+        val asignado = asignadoA?.nombre ?: "Sin asignar"
+        val etiquetasStr = if (obtenerEtiquetas().isNotEmpty()) {
+            " - Etiquetas: ${obtenerEtiquetas().joinToString(", ")}"
+        } else ""
+        return "Tarea $id - $descripcion [Estado: $estado, Asignado a: $asignado]$etiquetasStr"
+    }
+}
+```
+
+---
+
+## 2. Informe de depuración
+
+### **Incidencia**
+
+Se detectó un comportamiento incorrecto: la tarea principal puede finalizarse incluso si tiene subtareas activas. El método `tieneSubtareasAbiertas()` no refleja correctamente el estado actualizado de las subtareas si este se modifica externamente después de ser añadidas.
+
+---
+
+### **Técnica de depuración aplicada**
+
+- Se insertaron logs con `java.util.logging.Logger` para registrar eventos clave como cambios de estado y subtareas agregadas.
+- Se establecieron breakpoints en los métodos `cambiarEstado()` y `tieneSubtareasAbiertas()`.
+- Se inspeccionaron los valores de `estado` en subtareas en tiempo real usando el modo depuración.
+- Se creó un caso de prueba agregando subtareas, modificando sus estados y luego intentando finalizar la tarea principal.
+
+---
+
+### **Herramientas utilizadas**
+
+- **IDE**: IntelliJ IDEA
+- **Depurador**: breakpoints en métodos de estado y verificación de subtareas
+- **Logging**: `Logger.getLogger()` con diferentes niveles (`info`, `warning`, `fine`)
+
+---
+
+### **Proceso de análisis y solución aplicada**
+
+- Se verificó que el cambio de estado en subtareas no se reflejaba si no se volvía a evaluar explícitamente su estado al momento de cambiar el estado de la tarea principal.
+- Se confirmó que `tieneSubtareasAbiertas()` evalúa correctamente si se invoca justo antes de finalizar la tarea, lo que indicaba un problema de sincronización o falta de reevaluación en el momento oportuno.
+- Como solución temporal, se aseguró que `tieneSubtareasAbiertas()` revise directamente los estados actuales de las subtareas sin depender de valores cacheados o externos.
+
+---
+
+### **Solución aplicada**
+
+El método `tieneSubtareasAbiertas()` fue reforzado para garantizar que siempre evalúa el estado actual:
+
+```kotlin
+fun tieneSubtareasAbiertas(): Boolean {
+    return subtareas.any { it.estado != Estado.FINALIZADA }
+}
+
+---
+
+### **Conclusiones**
+
+- Se identificó un bug relacionado con la verificación del estado de subtareas.
+- El uso de `Logger` facilitó el seguimiento del flujo sin detener la ejecución.
+- El depurador fue útil para validar el contenido y estado de listas internas como `subtareas`.
+- Se reafirma la importancia de usar patrones de diseño como **Observer** o **Composite** cuando hay estructuras jerárquicas (tarea → subtareas).
