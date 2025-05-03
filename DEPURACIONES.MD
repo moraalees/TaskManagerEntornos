@@ -68,9 +68,6 @@ Se detecta un problema potencial en la generación de IDs. Al reiniciar la aplic
 
 * Se utilizó logging con `java.util.logging.Logger` para registrar cuándo se crean actividades y sus IDs.
 * Se establecieron breakpoints en el `init` y en `generarId()`.
-
-
-
 * Se inspeccionaron los valores de `id`, `fechaCreacion` y `ultimoId` en modo depuración.
 * Se ejecutó la aplicación varias veces, simulando reinicios.
 
