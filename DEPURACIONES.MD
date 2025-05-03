@@ -68,6 +68,8 @@ Se detecta un problema potencial en la generación de IDs. Al reiniciar la aplic
 
 * Se utilizó logging con `java.util.logging.Logger` para registrar cuándo se crean actividades y sus IDs.
 * Se establecieron breakpoints en el `init` y en `generarId()`.
+[Ejemplo grafico 1](https://github.com/moraalees/TaskManagerEntornos/blob/main/images/debug1/Captura%20de%20pantalla%202025-05-03%20130745.png)
+[Ejemplo grafico 2](https://github.com/moraalees/TaskManagerEntornos/blob/main/images/debug1/Captura%20de%20pantalla%202025-05-03%20131442.png)
 * Se inspeccionaron los valores de `id`, `fechaCreacion` y `ultimoId` en modo depuración.
 * Se ejecutó la aplicación varias veces, simulando reinicios.
 
