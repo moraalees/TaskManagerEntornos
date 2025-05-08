@@ -6,7 +6,6 @@ import es.prog2425.taskmanager.ui.ConsolaUI
 
 
 fun main(){
-
     val repositorio = ActividadRepositorioEnMemoria()
     val servicio = ActividadServicios(repositorio)
     val ui = ConsolaUI(servicio)
