@@ -1,5 +1,7 @@
 package es.prog2425.taskmanager.model
 
+import es.prog2425.taskmanager.service.ActividadServicios
+
 class Filtro() {
 
 

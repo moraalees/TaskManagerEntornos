@@ -1,6 +1,11 @@
-package es.prog2425.taskmanager.model
+package es.prog2425.taskmanager.service
 
 import es.prog2425.taskmanager.data.IActividadRepository
+import es.prog2425.taskmanager.model.Actividad
+import es.prog2425.taskmanager.model.Estado
+import es.prog2425.taskmanager.model.Evento
+import es.prog2425.taskmanager.model.Tarea
+import es.prog2425.taskmanager.model.Usuario
 import java.time.LocalDate
 
 class ActividadServicios(
@@ -13,11 +18,11 @@ class ActividadServicios(
         repositorio.agregarActividad(tarea)
     }
     override fun crearTarea(descripcion: String, etiquetas: String) {
-        val tarea = Tarea.creaInstancia(descripcion, etiquetas)
+        val tarea = Tarea.Companion.creaInstancia(descripcion, etiquetas)
         repositorio.agregarActividad(tarea)
     }
     override fun crearEvento(descripcion: String, fecha: String, ubicacion: String, etiquetas: String) {
-        val evento = Evento.creaInstancia(descripcion, fecha, ubicacion, etiquetas)
+        val evento = Evento.Companion.creaInstancia(descripcion, fecha, ubicacion, etiquetas)
         repositorio.agregarActividad(evento)
     }
     override fun listarActividades(): List<String> {
