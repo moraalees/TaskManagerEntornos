@@ -1,6 +1,11 @@
-package es.prog2425.taskmanager.model
+package es.prog2425.taskmanager.service
 
+import es.prog2425.taskmanager.model.Evento
 import es.prog2425.taskmanager.data.IActividadRepository
+import es.prog2425.taskmanager.model.Actividad
+import es.prog2425.taskmanager.model.Estado
+import es.prog2425.taskmanager.model.Tarea
+import es.prog2425.taskmanager.model.Usuario
 import java.time.LocalDate
 
 class ActividadServicios(
@@ -9,11 +14,12 @@ class ActividadServicios(
     private val usuarios = mutableListOf<Usuario>()
     private val actividades: List<Actividad>
         get() = repositorio.obtenerActividades()
+
     override fun crearTarea(tarea: Tarea) {
         repositorio.agregarActividad(tarea)
     }
     override fun crearTarea(descripcion: String, etiquetas: String) {
-        val tarea = Tarea.creaInstancia(descripcion, etiquetas)
+        val tarea = Tarea.Companion.creaInstancia(descripcion, etiquetas)
         repositorio.agregarActividad(tarea)
     }
     override fun crearEvento(descripcion: String, fecha: String, ubicacion: String, etiquetas: String) {
@@ -48,6 +54,7 @@ class ActividadServicios(
     override fun obtenerOCrearUsuario(nombre: String): Usuario {
         return usuarios.find { it.nombre == nombre } ?: Usuario(nombre).also { usuarios.add(it) }
     }
+
     fun obtenerResumenTareas(): Map<String, Any> {
         val tareas = listarTareas()
         val resumen = mutableMapOf<String, Any>()

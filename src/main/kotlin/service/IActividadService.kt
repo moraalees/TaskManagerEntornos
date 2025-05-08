@@ -1,4 +1,10 @@
-package es.prog2425.taskmanager.model
+package es.prog2425.taskmanager.service
+
+import es.prog2425.taskmanager.model.Evento
+import es.prog2425.taskmanager.model.Actividad
+import es.prog2425.taskmanager.model.Estado
+import es.prog2425.taskmanager.model.Tarea
+import es.prog2425.taskmanager.model.Usuario
 
 interface IActividadService {
     fun crearTarea(tarea: Tarea)

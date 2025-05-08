@@ -1,9 +1,15 @@
+package es.prog2425.taskmanager.model
+
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.logging.Logger
+
 class Evento private constructor(
     descripcion: String,
-    fecha: String,
+    val fecha: String,
     private val ubicacion: String
 ) : Actividad(descripcion) {
-    private val fechaNumerica: Int = fecha.toInt() 
+    private val fechaNumerica: Int = fecha.toInt()
 
     companion object {
         private val logger = Logger.getLogger("MiLogger")

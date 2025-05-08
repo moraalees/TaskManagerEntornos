@@ -1,6 +1,7 @@
 package es.prog2425.taskmanager.ui
 
 import es.prog2425.taskmanager.model.*
+import es.prog2425.taskmanager.service.ActividadServicios
 
 class ConsolaUI(private val actividadServicios: ActividadServicios) : IEntradaSalida {
 
