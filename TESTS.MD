@@ -1,8 +1,12 @@
 ## 1.Selección del servicio
 
+EL servicio elegido es `ActividadServicios`
+
 ## 2.Identificación de métodos
 
 ### Nombre del método
+
+`asignarUsuarioATarea(tarea: Tarea, usuario: Usuario)`
 
 ### Parámetros de entrada
 
