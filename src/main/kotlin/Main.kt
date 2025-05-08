@@ -11,7 +11,7 @@ fun main(){
     val servicio = ActividadServicios(repositorio)
     val ui = ConsolaUI(servicio)
 
-    ui.mostrarMenu()
+     ui.mostrarMenu()
 
 }
 
