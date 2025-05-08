@@ -307,7 +307,7 @@ class Tarea private constructor(descripcion: String) : Actividad(descripcion) {
 
 ---
 
-## 4. Informe de depuración
+## 2. Informe de depuración
 
 ### **Incidencia**
 
