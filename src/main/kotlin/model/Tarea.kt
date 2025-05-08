@@ -17,6 +17,7 @@ class Tarea private constructor(descripcion: String) : Actividad(descripcion) {
         agregarHistorial("Se agregó una subtarea con ID ${subtarea.id}")
     }
 
+
     fun obtenerSubtareas(): List<Tarea> = subtareas.toList()
 
     fun tieneSubtareasAbiertas(): Boolean {
