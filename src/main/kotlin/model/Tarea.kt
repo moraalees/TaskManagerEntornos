@@ -1,6 +1,6 @@
 package es.prog2425.taskmanager.model
 
-class Tarea private constructor(descripcion: String) : Actividad(descripcion) {
+class Tarea (descripcion: String) : Actividad(descripcion) {
 
     var estado: Estado = Estado.ABIERTA
         private set
@@ -23,19 +23,22 @@ class Tarea private constructor(descripcion: String) : Actividad(descripcion) {
         return subtareas.any { it.estado != Estado.FINALIZADA }
     }
 
-    fun cambiarEstado(nuevoEstado: Estado) {
+    fun cambiarEstado(nuevoEstado: Estado?) {
+        requireNotNull(nuevoEstado) { "El estado no puede ser nulo" }
         if (nuevoEstado == Estado.FINALIZADA && tieneSubtareasAbiertas()) {
             agregarHistorial("Intento de cerrar tarea fallido: subtareas abiertas")
             throw IllegalStateException("No se puede cerrar la tarea: tiene subtareas abiertas")
         }
 
-        estado = nuevoEstado
+        estado = nuevoEstado  // Sin verificar null aquí porque ya se lanzó la excepción arriba.
         agregarHistorial("Estado cambiado a $estado")
     }
 
-    fun asignarUsuario(usuario: Usuario) {
+
+    fun asignarUsuario(usuario: Usuario?) {
+        requireNotNull(usuario) { "El usuario no puede ser nulo" }
         asignadoA = usuario
-        agregarHistorial("Tarea asignada a ${usuario.nombre}")
+        agregarHistorial("Tarea asignada a ${usuario?.nombre}")
     }
 
     fun obtenerHistorial(): List<RegistroHistorial> = historial.toList()

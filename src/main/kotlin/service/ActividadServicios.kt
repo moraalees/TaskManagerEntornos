@@ -15,10 +15,16 @@ class ActividadServicios(
     private val actividades: List<Actividad>
         get() = repositorio.obtenerActividades()
 
-    override fun crearTarea(tarea: Tarea) {
-        repositorio.agregarActividad(tarea)
+    override fun crearTarea(tarea: Tarea?): Tarea {
+        if (tarea == null) {
+            throw IllegalArgumentException("La tarea no puede ser nula")
+        }
+        repositorio.agregarActividad(tarea)  // Guarda la tarea
+        return tarea
     }
+
     override fun crearTarea(descripcion: String, etiquetas: String) {
+        requireNotNull(descripcion) { "La tarea no puede ser nula" }
         val tarea = Tarea.Companion.creaInstancia(descripcion, etiquetas)
         repositorio.agregarActividad(tarea)
     }
@@ -39,12 +45,26 @@ class ActividadServicios(
             .filter { it.obtenerEtiquetas().contains(etiqueta) }
             .map { it.obtenerDetalle() }
     }
-    override fun asignarUsuarioATarea(tarea: Tarea, usuario: Usuario) {
-        tarea.asignarUsuario(usuario)
+
+
+    override fun asignarUsuarioATarea(tarea: Tarea, usuario: Usuario?): Tarea {
+        if (usuario == null) {
+            throw IllegalArgumentException("El usuario no puede ser nulo")
+        }
+        tarea.asignarUsuario(usuario)  // Asigna el usuario a la tarea
+        repositorio.agregarActividad(tarea)  // Guarda la tarea con el usuario asignado
+        return tarea
     }
-    override fun cambiarEstadoTarea(tarea: Tarea, nuevoEstado: Estado) {
-        tarea.cambiarEstado(nuevoEstado)
+
+    override fun cambiarEstadoTarea(tarea: Tarea, nuevoEstado: Estado?): Tarea {
+        if (nuevoEstado == null) {
+            throw IllegalArgumentException("El estado no puede ser nulo")
+        }
+        tarea.cambiarEstado(nuevoEstado)  // Cambia el estado de la tarea
+        repositorio.agregarActividad(tarea)  // Guarda la tarea con el nuevo estado
+        return tarea
     }
+
     override fun obtenerTareasDeUsuario(usuario: Usuario, actividades: List<Actividad>): List<Tarea> {
         return actividades.filterIsInstance<Tarea>().filter { it.asignadoA == usuario }
     }

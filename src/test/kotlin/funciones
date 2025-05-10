@@ -1,0 +1,25 @@
+override fun crearTarea(tarea: Tarea?): Tarea {
+        if (tarea == null) {
+            throw IllegalArgumentException("La tarea no puede ser nula")
+        }
+        repositorio.agregarActividad(tarea)  // Guarda la tarea
+        return tarea
+    }
+
+override fun asignarUsuarioATarea(tarea: Tarea, usuario: Usuario?): Tarea {
+        if (usuario == null) {
+            throw IllegalArgumentException("El usuario no puede ser nulo")
+        }
+        tarea.asignarUsuario(usuario)  // Asigna el usuario a la tarea
+        repositorio.agregarActividad(tarea)  // Guarda la tarea con el usuario asignado
+        return tarea
+    }
+
+    override fun cambiarEstadoTarea(tarea: Tarea, nuevoEstado: Estado?): Tarea {
+        if (nuevoEstado == null) {
+            throw IllegalArgumentException("El estado no puede ser nulo")
+        }
+        tarea.cambiarEstado(nuevoEstado)  // Cambia el estado de la tarea
+        repositorio.agregarActividad(tarea)  // Guarda la tarea con el nuevo estado
+        return tarea
+    }
