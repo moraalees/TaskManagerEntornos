@@ -19,7 +19,7 @@ class Filtro() {
             }
         }
 
-        fun filtrarActividades(actividadServicios: ActividadServicios) {
+        fun filtrarActividades(actividadServicios: ActividadServicios<Any?>) {
             println("\n*** Filtrar Actividades ***")
             println("1. Por tipo (Tarea/Evento)")
             println("2. Por estado (ABIERTA, EN_PROGRESO, FINALIZADA)")
@@ -39,7 +39,7 @@ class Filtro() {
                 else -> println("❌ Opción no válida.")
             }
         }
-        private fun filtrarPorTipo(actividadServicios: ActividadServicios) {
+        private fun filtrarPorTipo(actividadServicios: ActividadServicios<Any?>) {
             println("\n*** Filtrar por Tipo ***")
             println("1. Tareas")
             println("2. Eventos")
@@ -51,7 +51,7 @@ class Filtro() {
             }
         }
 
-        private fun filtrarPorEstado(actividadServicios: ActividadServicios) {
+        private fun filtrarPorEstado(actividadServicios: ActividadServicios<Any?>) {
             println("\n*** Filtrar por Estado ***")
             Estado.entries.forEachIndexed { index, estado -> println("${index + 1}. $estado") }
             print("Selecciona el estado (1-${Estado.entries.size}): ")
@@ -64,7 +64,7 @@ class Filtro() {
                 }
             }
         }
-        private fun filtrarPorEtiqueta(actividadServicios: ActividadServicios) {
+        private fun filtrarPorEtiqueta(actividadServicios: ActividadServicios<Any?>) {
             print("\nIngresa la etiqueta a filtrar: ")
             val etiqueta = readLine()?.trim().orEmpty()
             if (etiqueta.isNotBlank()) {
@@ -73,7 +73,7 @@ class Filtro() {
                 println("❌ La etiqueta no puede estar vacía.")
             }
         }
-        private fun filtrarPorUsuario(actividadServicios: ActividadServicios) {
+        private fun filtrarPorUsuario(actividadServicios: ActividadServicios<Any?>) {
             print("\nIngresa el nombre del usuario: ")
             val nombre = readLine()?.trim().orEmpty()
             if (nombre.isNotBlank()) {
@@ -83,7 +83,7 @@ class Filtro() {
             }
         }
 
-        private fun filtrarPorFecha(actividadServicios: ActividadServicios) {
+        private fun filtrarPorFecha(actividadServicios: ActividadServicios<Any?>) {
             println("\n*** Filtrar por Fecha ***")
             println("1. Hoy")
             println("2. Mañana")

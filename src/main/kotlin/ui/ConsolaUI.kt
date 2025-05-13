@@ -2,7 +2,7 @@ package es.prog2425.taskmanager.ui
 
 import es.prog2425.taskmanager.model.*
 
-class ConsolaUI(private val actividadServicios: ActividadServicios) : IEntradaSalida {
+class ConsolaUI(private val actividadServicios: ActividadServicios<Any?>) : IEntradaSalida {
 
     override fun mostrarMenu() {
         while (true) {

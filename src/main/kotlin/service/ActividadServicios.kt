@@ -3,7 +3,7 @@ package es.prog2425.taskmanager.model
 import es.prog2425.taskmanager.data.IActividadRepository
 import java.time.LocalDate
 
-class ActividadServicios(
+class ActividadServicios<Evento>(
     private val repositorio: IActividadRepository
 ) : IActividadService {
     private val usuarios = mutableListOf<Usuario>()

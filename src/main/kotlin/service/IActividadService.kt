@@ -1,5 +1,7 @@
 package es.prog2425.taskmanager.model
 
+import Evento
+
 interface IActividadService {
     fun crearTarea(tarea: Tarea)
     fun crearTarea(descripcion : String, etiquetas: String)
