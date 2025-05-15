@@ -15,7 +15,7 @@ class ActividadServiceTest : DescribeSpec({
     lateinit var service: ActividadServicios
 
     beforeEach {
-        mockRepo = mockk(relaxed = true)  // Mucho más seguro
+        mockRepo = mockk(relaxed = true)
         service = ActividadServicios(mockRepo)
     }
 
@@ -26,13 +26,13 @@ class ActividadServiceTest : DescribeSpec({
 
             val resultado = service.crearTarea(tarea)
 
-            resultado shouldBe tarea  // Verifica que la tarea sea la misma
-            verify { mockRepo.agregarActividad(tarea) }  // Verifica que se haya llamado al repositorio
+            resultado shouldBe tarea
+            verify { mockRepo.agregarActividad(tarea) }
         }
 
         it("debería lanzar excepción si la tarea es nula") {
             shouldThrow<IllegalArgumentException> {
-                service.crearTarea(null)  // Lanza excepción si la tarea es nula
+                service.crearTarea(null)
             }
         }
     }
@@ -46,14 +46,14 @@ class ActividadServiceTest : DescribeSpec({
             val resultado = service.asignarUsuarioATarea(tarea, usuario)
 
             resultado shouldBe tarea
-            resultado.asignadoA shouldBe usuario  // Verifica el efecto
+            resultado.asignadoA shouldBe usuario
             verify { mockRepo.agregarActividad(tarea) }
         }
 
         it("debería lanzar excepción si el usuario es nulo") {
             val tarea = Tarea("Hacer algo")
             shouldThrow<IllegalArgumentException> {
-                service.asignarUsuarioATarea(tarea, null)  // Lanza excepción si el usuario es nulo
+                service.asignarUsuarioATarea(tarea, null)
             }
         }
     }
@@ -67,7 +67,7 @@ class ActividadServiceTest : DescribeSpec({
             val resultado = service.cambiarEstadoTarea(tarea, nuevoEstado)
 
             resultado shouldBe tarea
-            resultado.estado shouldBe nuevoEstado  // Verifica el efecto
+            resultado.estado shouldBe nuevoEstado
             verify { mockRepo.agregarActividad(tarea) }
         }
 
@@ -75,7 +75,7 @@ class ActividadServiceTest : DescribeSpec({
         it("debería lanzar excepción si el estado es nulo") {
             val tarea = Tarea("Hacer algo")
             shouldThrow<IllegalArgumentException> {
-                service.cambiarEstadoTarea(tarea, null)  // Lanza excepción si el estado es nulo
+                service.cambiarEstadoTarea(tarea, null)
             }
         }
     }
