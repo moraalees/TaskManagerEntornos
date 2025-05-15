@@ -45,3 +45,8 @@ Para cada función/método, he tomado la decisión de asiganrle a cada uno un va
 | `filtrarPorEstado`   | Estado sin coincidencias          | `Estado` sin tareas asociadas              | Lista vacía                                       |
 | `obtenerTareaPorId`  | ID válido                         | ID existente                               | Devuelve la tarea correspondiente                 |
 | `obtenerTareaPorId`  | ID inexistente                    | ID que no corresponde a ninguna tarea      | Devuelve `null`                                   |
+
+---
+
+# 4.- Tests
+
