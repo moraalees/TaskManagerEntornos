@@ -30,3 +30,18 @@ He decidido realizar las pruebas unitarias sobre las siguientes funciones:
 - `filtrarPortipo(tipo: Class<out Actividad>): List<Actividad>`: Este método está diseñado por y para filtrar actividades (ya sean tareas o eventos) y en otra parte del programa se muestran los resultados.
 - `filtrarPorEstado(estado: Estado): List<Tarea>`: Esta función filtra las actividades (tareas y eventos) por su `Estado`, y se muestran los resultados gracias a otra parte del programa.
 - `obtenerTareaPorId(id: Int?): Tarea?`: Al recibir un ID, busca en el programa si hay actividades que tengan ese ID y la/s muestra.
+
+---
+
+# 3.- Casos de prueba
+
+Para cada función/método, he tomado la decisión de asiganrle a cada uno un valor válido y por otra parte uno inválido que haga que no funcione de forma idónea en el programa:
+
+| Método               | Caso de prueba                    | Parámetros                                 | Resultado esperado                                |
+|----------------------|-----------------------------------|--------------------------------------------|---------------------------------------------------|
+| `filtrarPorTipo`     | Tipo válido                       | Clase concreta que hereda de `Actividad`   | Lista con actividades del tipo indicado           |
+| `filtrarPorTipo`     | Tipo nulo (no permitido)          | null (vacío)                               | Lanza `IllegalArgumentException`                  |
+| `filtrarPorEstado`   | Estado válido                     | `Estado` con tareas en ese estado          | Lista con tareas que coinciden con el estado      |
+| `filtrarPorEstado`   | Estado sin coincidencias          | `Estado` sin tareas asociadas              | Lista vacía                                       |
+| `obtenerTareaPorId`  | ID válido                         | ID existente                               | Devuelve la tarea correspondiente                 |
+| `obtenerTareaPorId`  | ID inexistente                    | ID que no corresponde a ninguna tarea      | Devuelve `null`                                   |
