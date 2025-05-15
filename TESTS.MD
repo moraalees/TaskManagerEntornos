@@ -45,3 +45,4 @@ Los tests se implementaron usando Kotest y Mockk, creando mocks para el reposito
 
 Todos los tests fueron ejecutados exitosamente, comprobando el correcto funcionamiento del servicio `ActividadServicios` y la robustez ante entradas inválidas. No se reportaron errores ni excepciones inesperadas durante la ejecución.
 
+https://github.com/moraalees/TaskManagerEntornos/blob/cfb0afdd95867e0e659fc8ba7802ffaf246867c9/images/test/Captura%20de%20pantalla%202025-05-15%20124241.png
