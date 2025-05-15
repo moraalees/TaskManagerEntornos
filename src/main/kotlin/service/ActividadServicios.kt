@@ -1,9 +1,10 @@
-package es.prog2425.taskmanager.model
+package es.prog2425.taskmanager.service
 
 import es.prog2425.taskmanager.data.IActividadRepository
+import es.prog2425.taskmanager.model.*
 import java.time.LocalDate
 
-class ActividadServicios<Evento>(
+class ActividadServicios(
     private val repositorio: IActividadRepository
 ) : IActividadService {
     private val usuarios = mutableListOf<Usuario>()
@@ -20,6 +21,12 @@ class ActividadServicios<Evento>(
         val evento = Evento.creaInstancia(descripcion, fecha, ubicacion, etiquetas)
         repositorio.agregarActividad(evento)
     }
+    override fun crearEvento(evento: Evento?): Evento {
+        requireNotNull(evento) { "El evento no puede ser nulo" }
+        repositorio.agregarActividad(evento)
+        return evento
+    }
+
     override fun listarActividades(): List<String> {
         return repositorio.obtenerActividades().map { it.obtenerDetalle() }
     }
@@ -39,9 +46,11 @@ class ActividadServicios<Evento>(
     override fun cambiarEstadoTarea(tarea: Tarea, nuevoEstado: Estado) {
         tarea.cambiarEstado(nuevoEstado)
     }
-    override fun obtenerTareasDeUsuario(usuario: Usuario, actividades: List<Actividad>): List<Tarea> {
-        return actividades.filterIsInstance<Tarea>().filter { it.asignadoA == usuario }
+    override fun obtenerTareasDeUsuario(usuario: Usuario?, actividades: List<Actividad>): List<Tarea> {
+        return if (usuario == null) emptyList()
+        else actividades.filterIsInstance<Tarea>().filter { it.asignadoA == usuario }
     }
+
     override fun obtenerTareaPorId(id: Int?): Tarea? {
         return actividades.find { it is Tarea && it.id == id } as? Tarea
     }

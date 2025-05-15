@@ -37,7 +37,7 @@ abstract class Actividad(val descripcion: String) {
             return LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
         }
 
-        private fun generarId(fecha: String): Int {
+         fun generarId(fecha: String): Int {
             val idGenerado = ++ultimoId
             println("Generando ID para fecha $fecha: ID = $idGenerado") // Logging básico
             return idGenerado

@@ -6,8 +6,10 @@ class ActividadRepositorioEnMemoria : IActividadRepository{
     private val actividades = mutableListOf<Actividad>()
 
 
-    override fun agregarActividad(actividad: Actividad) {
-        actividades.add(actividad)
+    override fun agregarActividad(actividad: Actividad?) {
+        if (actividad != null) {
+            actividades.add(actividad)
+        }
     }
 
 

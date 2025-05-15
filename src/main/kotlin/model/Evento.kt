@@ -1,14 +1,15 @@
-import es.prog2425.taskmanager.model.Actividad
+package es.prog2425.taskmanager.model
+
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.logging.Logger
 
 
 
-class Evento private constructor(
+class Evento  (
     descripcion: String,
-    private val fecha: String,
-    private val ubicacion: String
+     val fecha: String,
+     val ubicacion: String
 ) : Actividad(descripcion) {
 
 

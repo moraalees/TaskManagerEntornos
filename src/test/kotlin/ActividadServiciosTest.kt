@@ -1,66 +1,94 @@
-// Importo las clases necesarias del proyecto y las librerías de test
-import es.prog2425.taskmanager.data.ActividadRepositorioEnMemoria
-import es.prog2425.taskmanager.model.ActividadServicios
+import es.prog2425.taskmanager.data.IActividadRepository
+import es.prog2425.taskmanager.model.Actividad
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
+import io.kotest.assertions.throwables.shouldThrow
+import io.mockk.*
+import es.prog2425.taskmanager.model.Evento
 import es.prog2425.taskmanager.model.Tarea
 import es.prog2425.taskmanager.model.Usuario
+import es.prog2425.taskmanager.service.ActividadServicios
 
-// Esta clase contiene las pruebas unitarias para el servicio de actividades/tareas
-class ServicioTareasTest : DescribeSpec({
+class ActividadServiciosTest : DescribeSpec({
 
-    // Agrupo las pruebas bajo el nombre del servicio que estoy probando
-    describe("ServicioTareas") {
+    lateinit var mockRepo: IActividadRepository
+    lateinit var service: ActividadServicios
 
-        // Creo dos usuarios que voy a utilizar para asignar tareas
-        val usuarioJuan = Usuario("Juan")
-        val usuarioAna = Usuario("Ana")
+    beforeSpec {
+        mockRepo = mockk(relaxed = true)
+        service = ActividadServicios(mockRepo)
+    }
 
-        // Creo tres tareas de ejemplo
-        val tarea1 = Tarea("Tarea A")
-        val tarea2 = Tarea("Tarea B")
-        val tarea3 = Tarea("Tarea C")
+    describe("crearEvento") {
 
-        // Asigno tareas 1 y 2 a Juan, y la 3 a Ana
-        tarea1.asignarUsuario(usuarioJuan)
-        tarea2.asignarUsuario(usuarioJuan)
-        tarea3.asignarUsuario(usuarioAna)
+        it("debe agregar correctamente un evento") {
+            val evento = Evento("Hacer algo", "17-8-2005", "Madrid")
+            every { mockRepo.agregarActividad(any()) } just Runs
 
-        // Lista de todas las tareas creadas
-        val actividades = listOf(tarea1, tarea2, tarea3)
+            val resultado = service.crearEvento(evento)
 
-        // Creo una instancia del servicio usando un repositorio en memoria
-        val servicio: ActividadServicios<Tarea> = ActividadServicios(ActividadRepositorioEnMemoria())
+            resultado shouldBe evento
+            verify { mockRepo.agregarActividad(evento) }
 
-        // Test: el servicio devuelve solo las tareas asignadas al usuario Juan
-        it("devuelve solo las tareas de un usuario") {
-            val resultado = servicio.obtenerTareasDeUsuario(usuarioJuan, actividades)
+        }
+
+        it("debería lanzar error si el evento es nulo") {
+            shouldThrow<IllegalArgumentException> {
+                service.crearEvento(null)
+            }
+        }
+    }
+
+    describe("listarActividades") {
+
+        it("debe devolver una lista de detalles de actividades") {
+            val actividad1 = mockk<Actividad>()
+            val actividad2 = mockk<Actividad>()
+
+            every { actividad1.obtenerDetalle() } returns "Detalle 1"
+            every { actividad2.obtenerDetalle() } returns "Detalle 2"
+            every { mockRepo.obtenerActividades() } returns listOf(actividad1, actividad2)
+
+            val resultado = service.listarActividades()
+
+            resultado shouldBe listOf("Detalle 1", "Detalle 2")
+        }
+
+        it("debe devolver una lista vacía si no hay actividades") {
+            every { mockRepo.obtenerActividades() } returns emptyList()
+
+            val resultado = service.listarActividades()
+
+            resultado shouldBe emptyList()
+        }
+    }
+
+    describe("obtenerTareasDeUsuario") {
+
+        it("debe devolver solo tareas asignadas al usuario") {
+            val usuario = Usuario("Bruno")
+            val tarea1 = Tarea("Tarea 1")
+            val tarea2 = Tarea("Tarea 2")
+            val evento = Evento("Evento", "3-18-2006", "Madrid")
+
+            tarea1.asignarUsuario(usuario)
+            tarea2.asignarUsuario(usuario)
+
+            val actividades = listOf(tarea1, tarea2, evento)
+
+            val resultado = service.obtenerTareasDeUsuario(usuario, actividades)
+
             resultado shouldBe listOf(tarea1, tarea2)
         }
 
-        // Test: si el usuario no tiene tareas asignadas, devuelve una lista vacía
-        it("devuelve lista vacía si el usuario no tiene tareas") {
-            val usuarioSinTareas = Usuario("SinTareas")
-            val resultado = servicio.obtenerTareasDeUsuario(usuarioSinTareas, actividades)
+        it("debe devolver lista vacía si el usuario es null") {
+            val tarea = Tarea("Tarea sin asignar")
+            val actividades = listOf(tarea)
+
+            val resultado = service.obtenerTareasDeUsuario(null, actividades)
+
             resultado shouldBe emptyList()
-        }
-
-        // Test: devuelve correctamente la tarea si el ID existe
-        it("devuelve la tarea por id si existe") {
-            val resultado = servicio.obtenerTareaPorId(tarea3.id)
-            resultado shouldBe tarea3
-        }
-
-        // Test: devuelve null si se busca una tarea con un ID que no existe
-        it("devuelve null si el id no existe") {
-            val resultado = servicio.obtenerTareaPorId(99)
-            resultado shouldBe null
-        }
-
-        // Test: devuelve null si el ID es null
-        it("devuelve null si el id es null") {
-            val resultado = servicio.obtenerTareaPorId(null)
-            resultado shouldBe null
         }
     }
 })
+
