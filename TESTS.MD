@@ -39,7 +39,11 @@ EL servicio elegido es `ActividadServicios`
 
 ## 4.Implementación de los tests
 
-Los tests se implementaron usando Kotest y Mockk, creando mocks para el repositorio y verificando las interacciones. Se probaron tanto casos exitosos como casos que lanzan excepciones al recibir parámetros nulos.
+Los tests se implementaron usando Kotest y Mockk, creando mocks para el repositorio y verificando las interacciones. Se probaron tanto casos exitosos como casos que lanzan excepciones al recibir parámetros nulos.Para ello se creó un archivo llamado `ActividadServiceTest`. 
+
+También se modificó el archivo `build.gradle.kts` y se agregaron las dependencias necesarias:
+
+https://github.com/moraalees/TaskManagerEntornos/blob/5c9bb43852602ae5242e0144a455c126c0ebe61e/build.gradle.kts#L16-L26
 
 `crearTarea`
 
