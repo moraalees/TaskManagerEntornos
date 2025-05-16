@@ -50,3 +50,10 @@ Para cada función/método, he tomado la decisión de asiganrle a cada uno un va
 
 # 4.- Tests
 
+---
+
+# 5.- Resultados
+
+Tras ejecutar los respectivos tests que contiene la clase `ActividadServiceTest`, hemos obtenido que las pruebas unitarias se han realizado correctamente, en un total de 8 segundos!
+
+[Resultado](images/test/Captura de pantalla 2025-05-16 133058.png)
