@@ -77,3 +77,6 @@ En `obtenerTareaPorId`, pongo a prueba que el servicio devuelva correctamente un
 Tras ejecutar los respectivos tests que contiene la clase `ActividadServiceTest`, hemos obtenido que las pruebas unitarias se han realizado correctamente, en un total de 8 segundos!
 
 [Resultado](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-16%20133058.png)
+
+Con esta captura, determinamos que 4 / 4 procesos se han ejecutado y finalizado correctamente, en un total de 8 segundos aproximadamente.
+Los casos de error lanzan la excepción que se desea o retornan un valor esperado, ya sea en mi caso null.
