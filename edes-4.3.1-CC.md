@@ -112,3 +112,78 @@ Con este cambio, el umbral pasa de 11 a 20 funciones permitidas.
 * **Después**: Solo se reportan errores si superan 20 funciones.
 
 Esto puede ser útil si tu proyecto maneja clases grandes intencionalmente o en etapas tempranas de diseño, para evitar "ruido" excesivo en los informes de Detekt.
+
+
+# Preguntas
+
+### \[1]
+
+**1.a ¿Qué herramienta has usado y para qué sirve?**
+
+He utilizado **Detekt**, una herramienta de análisis estático de código para proyectos escritos en **Kotlin**. Su objetivo es detectar *"code smells"*, errores de estilo, problemas de diseño y posibles bugs antes de que se ejecuten.
+
+**1.b ¿Cuáles son sus características principales?**
+
+* Detecta errores comunes de estilo y estructura.
+* Es altamente configurable mediante un archivo YAML (`detekt.yml`).
+* Se integra fácilmente con **Gradle**.
+* Permite escribir reglas personalizadas.
+* Se puede automatizar en entornos de integración continua.
+
+**1.c ¿Qué beneficios obtengo al utilizar dicha herramienta?**
+
+* Mejora la calidad del código al detectar malas prácticas.
+* Facilita la mantenibilidad y legibilidad del código.
+* Ayuda a mantener un estilo uniforme en todo el equipo de desarrollo.
+* Reduce errores en tiempo de ejecución al identificar posibles fallos de lógica.
+
+---
+
+### \[2]
+
+**2.a ¿Cuál es el error que más ha mejorado tu código?**
+
+El error más significativo fue **"TooManyFunctions"**, que indica que una clase o interfaz tiene demasiadas funciones. Esto ayudó a refactorizar `ActividadServicios` e `IActividadService`, dividiéndolos en clases e interfaces más cohesionadas.
+
+**2.b ¿La solución te ha parecido correcta y la has entendido?**
+
+Sí, me ha parecido totalmente correcta. Dividir la lógica en distintas clases mejoró la **organización, el principio de responsabilidad única (SRP)** y facilitó su mantenimiento.
+
+**2.c ¿Por qué se produjo ese error?**
+
+Porque había clases e interfaces que centralizaban demasiadas responsabilidades (hasta 19 funciones), violando principios de diseño limpio y dificultando su comprensión y testeo.
+
+---
+
+### \[3]
+
+**3.a ¿Qué posibilidades de configuración tiene la herramienta?**
+
+Detekt permite configurar:
+
+* Umbrales máximos (como número de funciones por clase).
+* Reglas activas/inactivas.
+* Severidad de los errores (warning/error).
+* Inclusión/exclusión de archivos y carpetas.
+* Reglas personalizadas.
+
+**3.b ¿Cuál has configurado distinta de la que viene por defecto?**
+
+He cambiado el umbral de la regla `TooManyFunctions` de **11 a 20 funciones** para reducir la sensibilidad durante la fase inicial de desarrollo.
+
+**3.c Ejemplo de impacto en el código (antes y después):**
+
+Se explica arriba el cómo impacta en el código.
+
+---
+
+### \[4]
+
+**¿Qué conclusiones sacas después del uso de estas herramientas?**
+
+* Son herramientas muy útiles para mejorar la calidad del código de forma automática y objetiva.
+* Facilitan la aplicación de principios SOLID y buenas prácticas de diseño.
+* Ayudan a detectar errores tempranamente, lo que reduce el coste de mantenimiento.
+* Aunque puede parecer exigente al principio, su uso sistemático mejora significativamente el código a medio y largo plazo.
+
+
