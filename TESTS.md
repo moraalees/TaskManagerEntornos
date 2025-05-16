@@ -56,4 +56,4 @@ Para cada función/método, he tomado la decisión de asiganrle a cada uno un va
 
 Tras ejecutar los respectivos tests que contiene la clase `ActividadServiceTest`, hemos obtenido que las pruebas unitarias se han realizado correctamente, en un total de 8 segundos!
 
-(Resultado)[images/test/Captura de pantalla 2025-05-16 133058.png]
+[Resultado](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-16%20133058.png)
