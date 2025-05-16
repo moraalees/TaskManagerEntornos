@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm") version "2.0.20"
     id("org.jetbrains.kotlin.plugin.allopen") version "2.0.20"
+    id("io.gitlab.arturbosch.detekt") version "1.23.1"
 }
 
 group = "es.prog2425.taskmanager"
@@ -8,6 +9,11 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+}
+
+detekt {
+    buildUponDefaultConfig = true // usa configuración base de Detekt
+    allRules = false              // activa solo las reglas recomendadas
 }
 
 val kotestVersion = "5.5.4"
@@ -26,5 +32,8 @@ tasks.test {
 }
 
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(17)
 }
+
+
+
