@@ -36,12 +36,22 @@ Solución aplicada (antes y después, con enlaces a commits específicos).
 
 1: `ActividadServicios` fue dividida en `ActividadServicioFiltro`, `ActividadServicioGestion` y  `ActividadServicioUsuarioTarea`.
 
+[Commit](https://github.com/moraalees/TaskManagerEntornos/commit/bdeaec4a02c5da64a4b89a1d54db72256fb79714)
+
 2: `IActividadServicios` fue dividida en `IActividadServicioFiltro`, `IActividadServicioGestion` y  `IActividadServicioUsuarioTarea`.
+
+[Commit](https://github.com/moraalees/TaskManagerEntornos/commit/851bd2bf0930479be5e52797ae0edf72fd806414)
 
 3: `ConsolaUI` fue dividida en `MenuActividades` y `MenuMostrar` con sus interfaces `IMenuActividades` y `IMenuMostrar`.
 
+[Commit](https://github.com/moraalees/TaskManagerEntornos/commit/c8aaae4e42c3df8cb242f01609bbde50322053a8)
+
 4: El constructor de `Filtro` fue eliminado
 
+[Commit](https://github.com/moraalees/TaskManagerEntornos/commit/39d1e443c31102e6cdfa64ccf5296570b5e0c218)
+
 5: Se cambió el error generico de `Evento` por `DateTimeParseException`
+
+[Commit](https://github.com/moraalees/TaskManagerEntornos/commit/306b1dcb2f0297e4c28d51b3d1f1170af97e8d19)
 
 ### 5.Explorar y modificar al menos una opción de configuración del analizador distinta de la predeterminada; describir cómo afecta al código y por tanto al informe de errores.
