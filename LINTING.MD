@@ -1,13 +1,21 @@
 ### 1.Instalar la herramienta elegida (Detekt o Ktlint) e incluir capturas de pantalla del proceso.
 
+
+
 ### 2.Integrar el analizador en el proyecto que se está desarrollando y ejecutar el análisis.
+
+[Errores en pantalla](https://github.com/moraalees/TaskManagerEntornos/blob/Carlos/images/linting/errores.png)
 
 ### 3.Identificar al menos 5 tipos de errores detectados.
 
 C:\Users\caram\Reposgit\TaskManagerEntornos\src\main\kotlin\service\ActividadServicios.kt:11:7: Class 'ActividadServicios' with '19' functions detected. Defined threshold inside classes is set to '11' [TooManyFunctions]
+
 C:\Users\caram\Reposgit\TaskManagerEntornos\src\main\kotlin\service\IActividadService.kt:9:11: Interface 'IActividadService' with '16' functions detected. Defined threshold inside interfaces is set to '11' [TooManyFunctions]
+
 C:\Users\caram\Reposgit\TaskManagerEntornos\src\main\kotlin\ui\ConsolaUI.kt:6:7: Class 'ConsolaUI' with '11' functions detected. Defined threshold inside classes is set to '11' [TooManyFunctions]
+
 C:\Users\caram\Reposgit\TaskManagerEntornos\src\main\kotlin\model\Filtro.kt:5:13: An empty default constructor can be removed. [EmptyDefaultConstructor]
+
 C:\Users\caram\Reposgit\TaskManagerEntornos\src\main\kotlin\model\Evento.kt:32:22: The caught exception is too generic. Prefer catching specific exceptions to the case that is currently handled. [TooGenericExceptionCaught]
 
 ### 4.Para cada tipo de error, documentar:
@@ -25,5 +33,15 @@ Descripción del error.
 5.The caught exception is too generic. Prefer catching specific exceptions to the case that is currently handled. [TooGenericExceptionCaught]
 
 Solución aplicada (antes y después, con enlaces a commits específicos).
+
+1: `ActividadServicios` fue dividida en `ActividadServicioFiltro`, `ActividadServicioGestion` y  `ActividadServicioUsuarioTarea`.
+
+2: `IActividadServicios` fue dividida en `IActividadServicioFiltro`, `IActividadServicioGestion` y  `IActividadServicioUsuarioTarea`.
+
+3: `ConsolaUI` fue dividida en `MenuActividades` y `MenuMostrar` con sus interfaces `IMenuActividades` y `IMenuMostrar`.
+
+4: El constructor de `Filtro` fue eliminado
+
+5: Se cambió el error generico de `Evento` por `DateTimeParseException`
 
 ### 5.Explorar y modificar al menos una opción de configuración del analizador distinta de la predeterminada; describir cómo afecta al código y por tanto al informe de errores.
