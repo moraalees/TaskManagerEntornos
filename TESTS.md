@@ -52,13 +52,11 @@ Para cada función/método, he tomado la decisión de asiganrle a cada uno un va
 
 Para poder realizar las pruebas de forma correcta, primero he tenido que agregar al archivo `build.gradle.kts` algunas dependencias para poder usar Kotest y MockK en el proyecto.
 
-### `build.gradle.kts`:
-https://github.com/moraalees/TaskManagerEntornos/blob/9ad6431727d605bffbf9635d073d2d890f957e9c/build.gradle.kts#L13C1-L24C2
+### [`build.gradle.kts`](https://github.com/moraalees/TaskManagerEntornos/blob/9ad6431727d605bffbf9635d073d2d890f957e9c/build.gradle.kts#L13C1-L24C2)
 
 Sobre cómo he realizado los tests, he decidido crear una clase que utilice dichas dependencias (Kotest / MockK). En lugar de poner, como se hace tradicionalmente, @Tests al inicio del código, con hacer que la clase herede de `DescribeSpec` ya bastaría. En esta clase, 'mockeo' el directorio para simular el comportamiento de `IActividadRepository`. El método `mockk(relaxed = true)` hace que se pueda crear un mockK del repositorio en el que los métodos no necesitan ser definidos anteriormente para devolver valores por defecto.
 
-### `ActividadServiceTest`:
-https://github.com/moraalees/TaskManagerEntornos/blob/9ad6431727d605bffbf9635d073d2d890f957e9c/src/test/kotlin/ActividadServiceTest.kt#L10C1-L18C6
+### [`ActividadServiceTest`](https://github.com/moraalees/TaskManagerEntornos/blob/9ad6431727d605bffbf9635d073d2d890f957e9c/src/test/kotlin/ActividadServiceTest.kt#L10C1-L18C6)
 
 ---
 
