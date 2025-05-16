@@ -1,6 +1,16 @@
 ### 1.Instalar la herramienta elegida (Detekt o Ktlint) e incluir capturas de pantalla del proceso.
 
+Herramienta elegida: Detekt
 
+Ediciones en el `build.gradle.kts`
+
+https://github.com/moraalees/TaskManagerEntornos/blob/f7e701a69f2d244bb871e7f8f54c9b8f2c89a9d5/build.gradle.kts#L4
+
+https://github.com/moraalees/TaskManagerEntornos/blob/f7e701a69f2d244bb871e7f8f54c9b8f2c89a9d5/build.gradle.kts#L14-L17
+
+https://github.com/moraalees/TaskManagerEntornos/blob/f7e701a69f2d244bb871e7f8f54c9b8f2c89a9d5/build.gradle.kts#L34-L36
+
+Se tuvo que cambiar la version de JVM a 17 porque es la más estable para trabajar con Detekt
 
 ### 2.Integrar el analizador en el proyecto que se está desarrollando y ejecutar el análisis.
 
@@ -55,3 +65,34 @@ Solución aplicada (antes y después, con enlaces a commits específicos).
 [Commit](https://github.com/moraalees/TaskManagerEntornos/commit/306b1dcb2f0297e4c28d51b3d1f1170af97e8d19)
 
 ### 5.Explorar y modificar al menos una opción de configuración del analizador distinta de la predeterminada; describir cómo afecta al código y por tanto al informe de errores.
+
+En Detekt, la configuración por defecto establece un umbral de funciones máximas permitidas por clase o interfaz (por ejemplo, 11 funciones). Esto busca promover clases más cohesionadas y con responsabilidad única.
+
+---
+
+#### Opción modificada: `TooManyFunctions.threshold`
+
+Esta opción define el número máximo de funciones permitidas en una clase o interfaz antes de marcar un error.
+
+---
+
+#### ¿Cómo cambiarlo?
+
+En tu archivo de configuración `detekt.yml` puedes añadir o modificar esta regla así:
+
+```yaml
+style:
+  TooManyFunctions:
+    threshold: 20
+```
+
+Con este cambio, el umbral pasa de 11 a 20 funciones permitidas.
+
+---
+
+#### ¿Cómo afecta esto al código y al informe?
+
+* **Antes**: Clases con más de 11 funciones generaban errores `TooManyFunctions`.
+* **Después**: Solo se reportan errores si superan 20 funciones.
+
+Esto puede ser útil si tu proyecto maneja clases grandes intencionalmente o en etapas tempranas de diseño, para evitar "ruido" excesivo en los informes de Detekt.
