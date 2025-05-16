@@ -2,6 +2,7 @@ package es.prog2425.taskmanager.model
 
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 import java.util.logging.Logger
 
 class Evento private constructor(
@@ -29,7 +30,7 @@ class Evento private constructor(
                 logger.info("Intentando validar la fecha: $fecha")
                 LocalDate.parse(fecha, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
                 true
-            } catch (e: Exception) {
+            } catch (e: DateTimeParseException) {
                 logger.severe("Error al validar fecha: ${e.message}")
                 false
             }
