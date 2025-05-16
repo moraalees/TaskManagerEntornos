@@ -58,9 +58,25 @@ Solución aplicada (antes y después, con enlaces a commits específicos).
 
 4: El constructor de `Filtro` fue eliminado
 
+Antes:
+
+https://github.com/moraalees/TaskManagerEntornos/blob/98c919a07b28a29e151df9ea72abea1f359572f8/src/main/kotlin/model/Filtro.kt#L3
+
+Despues:
+
+https://github.com/moraalees/TaskManagerEntornos/blob/e35bbfa2c90e70c1af82dbe765297a95cc5d0eea/src/main/kotlin/model/Filtro.kt#L5
+
 [Commit](https://github.com/moraalees/TaskManagerEntornos/commit/39d1e443c31102e6cdfa64ccf5296570b5e0c218)
 
 5: Se cambió el error generico de `Evento` por `DateTimeParseException`
+
+Antes:
+
+https://github.com/moraalees/TaskManagerEntornos/blob/98c919a07b28a29e151df9ea72abea1f359572f8/src/main/kotlin/model/Evento.kt#L21-L31
+
+Despues:
+
+https://github.com/moraalees/TaskManagerEntornos/blob/e35bbfa2c90e70c1af82dbe765297a95cc5d0eea/src/main/kotlin/model/Evento.kt#L28-L38
 
 [Commit](https://github.com/moraalees/TaskManagerEntornos/commit/306b1dcb2f0297e4c28d51b3d1f1170af97e8d19)
 
