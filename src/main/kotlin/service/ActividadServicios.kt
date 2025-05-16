@@ -25,6 +25,7 @@ class ActividadServicios(
         val evento = Evento.Companion.creaInstancia(descripcion, fecha, ubicacion, etiquetas)
         repositorio.agregarActividad(evento)
     }
+
     override fun listarActividades(): List<String> {
         return repositorio.obtenerActividades().map { it.obtenerDetalle() }
     }
@@ -112,7 +113,8 @@ class ActividadServicios(
                 fechaEvento.isAfter(hoy) && fechaEvento.isBefore(hoy.plusMonths(1))
             }
     }
-    override fun filtrarPorTipo(tipo: Class<out Actividad>): List<Actividad> {
+    override fun filtrarPorTipo(tipo: Class<out Actividad>?): List<Actividad> {
+        requireNotNull(tipo) { "El tipo no puede ser nulo" }
         return repositorio.obtenerActividades().filter { it.javaClass == tipo }
     }
     override fun filtrarPorEstado(estado: Estado): List<Tarea> {

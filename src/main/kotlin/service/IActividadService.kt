@@ -18,7 +18,7 @@ interface IActividadService {
     fun obtenerTareasDeUsuario(usuario: Usuario, actividades: List<Actividad>): List<Tarea>
     fun obtenerTareaPorId(id: Int?): Tarea?
     fun obtenerOCrearUsuario(nombre: String): Usuario
-    fun filtrarPorTipo(tipo: Class<out Actividad>): List<Actividad>
+    fun filtrarPorTipo(tipo: Class<out Actividad>?): List<Actividad>
     fun filtrarPorEstado(estado: Estado): List<Tarea>
     fun filtrarPorEtiqueta(etiqueta: String): List<Actividad>
     fun filtrarPorUsuario(nombreUsuario: String): List<Tarea>
