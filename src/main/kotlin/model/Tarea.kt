@@ -1,6 +1,6 @@
 package es.prog2425.taskmanager.model
 
-class Tarea private constructor(descripcion: String) : Actividad(descripcion) {
+class Tarea constructor(descripcion: String) : Actividad(descripcion) {
 
     var estado: Estado = Estado.ABIERTA
         private set

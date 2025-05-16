@@ -9,93 +9,86 @@ import es.prog2425.taskmanager.service.*
 
 class ActividadServiceTest : DescribeSpec({
 
-    val mockRepositorio = mockk<ActividadRepositorioEnMemoria>()
-    val servicio = ActividadServicios(mockRepositorio)
+    lateinit var mockRepo: IActividadRepository
+    lateinit var service: ActividadServicios
+
+    beforeEach {
+        mockRepo = mockk(relaxed = true)
+        service = ActividadServicios(mockRepo)
+    }
 
     describe("filtrarPorTipo") {
-
-        it("debería devolver solo actividades del tipo indicado (tipo válido)") {
+        it("debería devolver solo actividades del tipo indicado") {
             val actividades = listOf(
-                Tarea.creaInstancia("Tarea 1"),
+                Tarea("Tarea A"),
                 OtraActividad(),
-                Tarea.creaInstancia("Tarea 2")
+                Tarea("Tarea B")
             )
+            every { mockRepo.obtenerActividades() } returns actividades
 
-            every { mockRepositorio.obtenerActividades() } returns actividades
-
-            val resultado = servicio.filtrarPorTipo(Tarea::class.java)
+            val resultado = service.filtrarPorTipo(Tarea::class.java)
 
             resultado.size shouldBe 2
             resultado.all { it is Tarea } shouldBe true
         }
 
-        it("debería lanzar IllegalArgumentException si se pasa tipo nulo") {
+        it("debería lanzar excepción si el tipo es nulo") {
             shouldThrow<IllegalArgumentException> {
-                servicio.filtrarPorTipo(null)
+                service.filtrarPorTipo(null)
             }
         }
     }
 
     describe("filtrarPorEstado") {
+        it("debería devolver tareas con el estado especificado") {
+            val tareas = listOf(
+                Tarea("T1").apply { cambiarEstado(Estado.EN_PROGRESO) },
+                Tarea("T2").apply { cambiarEstado(Estado.FINALIZADA) },
+                Tarea("T3").apply { cambiarEstado(Estado.EN_PROGRESO) }
+            )
+            every { mockRepo.obtenerActividades() } returns tareas
 
-        it("debería devolver tareas con estado especificado (estado válido)") {
-            val t1 = Tarea.creaInstancia("Tarea 1")
-            t1.cambiarEstado(Estado.EN_PROGRESO)
-
-            val t2 = Tarea.creaInstancia("Tarea 2")
-            t2.cambiarEstado(Estado.FINALIZADA)
-
-            val t3 = Tarea.creaInstancia("Tarea 3")
-            t3.cambiarEstado(Estado.EN_PROGRESO)
-
-            val actividades = listOf(t1, t2, t3)
-            every { mockRepositorio.obtenerActividades() } returns actividades
-
-            val resultado = servicio.filtrarPorEstado(Estado.EN_PROGRESO)
+            val resultado = service.filtrarPorEstado(Estado.EN_PROGRESO)
 
             resultado.size shouldBe 2
             resultado.all { it.estado == Estado.EN_PROGRESO } shouldBe true
         }
 
         it("debería devolver lista vacía si no hay tareas con ese estado") {
-            val t1 = Tarea.creaInstancia("Tarea 1")
-            t1.cambiarEstado(Estado.ABIERTA)
+            val tareas = listOf(
+                Tarea("T1").apply { cambiarEstado(Estado.FINALIZADA) },
+                Tarea("T2").apply { cambiarEstado(Estado.FINALIZADA) }
+            )
+            every { mockRepo.obtenerActividades() } returns tareas
 
-            val t2 = Tarea.creaInstancia("Tarea 2")
-            t2.cambiarEstado(Estado.FINALIZADA)
+            val resultado = service.filtrarPorEstado(Estado.EN_PROGRESO)
 
-            every { mockRepositorio.obtenerActividades() } returns listOf(t1, t2)
-
-            val resultado = servicio.filtrarPorEstado(Estado.EN_PROGRESO)
-
-            resultado.shouldBe(emptyList())
+            resultado shouldBe emptyList()
         }
     }
 
     describe("obtenerTareaPorId") {
+        it("debería devolver la tarea con el ID correcto") {
+            val tareaBuscada = Tarea("Tarea encontrada")
+            val tareas = listOf(
+                Tarea("Otra tarea"),
+                tareaBuscada
+            )
+            every { mockRepo.obtenerActividades() } returns tareas
 
-        it("debería devolver la tarea con el ID especificado si existe") {
-            val tareaEsperada = Tarea.creaInstancia("Tarea importante")
-            val otra = OtraActividad()
-            val actividades = listOf(tareaEsperada, otra)
+            val resultado = service.obtenerTareaPorId(tareaBuscada.id)
 
-            every { mockRepositorio.obtenerActividades() } returns actividades
-
-            val resultado = servicio.obtenerTareaPorId(tareaEsperada.id)
-
-            resultado?.id shouldBe tareaEsperada.id
-            resultado?.descripcion shouldBe tareaEsperada.descripcion
+            resultado shouldBe tareaBuscada
         }
 
-        it("debería devolver null si no existe una tarea con ese ID") {
-            val actividades = listOf(
-                Tarea.creaInstancia("Tarea 1"),
-                OtraActividad()
+        it("debería devolver null si no existe la tarea con ese ID") {
+            val tareas = listOf(
+                Tarea("T1"),
+                Tarea("T2")
             )
+            every { mockRepo.obtenerActividades() } returns tareas
 
-            every { mockRepositorio.obtenerActividades() } returns actividades
-
-            val resultado = servicio.obtenerTareaPorId(999)
+            val resultado = service.obtenerTareaPorId(999)
 
             resultado shouldBe null
         }
