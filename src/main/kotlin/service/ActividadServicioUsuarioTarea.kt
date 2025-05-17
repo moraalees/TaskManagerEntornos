@@ -25,6 +25,9 @@ class ActividadServicioUsuarioTarea(val repositorio : IActividadRepository) : IA
         return tarea
     }
 
+    val actividades = mutableListOf<Actividad>()
+    val usuarios = mutableListOf<Usuario>()
+
     override fun obtenerTareasDeUsuario(usuario: Usuario, actividades: List<Actividad>): List<Tarea> {
         return actividades.filterIsInstance<Tarea>().filter { it.asignadoA == usuario }
     }

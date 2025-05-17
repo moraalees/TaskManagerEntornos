@@ -31,7 +31,7 @@ abstract class Actividad(val descripcion: String) {
     abstract fun obtenerDetalle(): String
 
     companion object {
-        private var ultimoId = 0
+        var ultimoId = 0
 
         fun obtenerFechaActual(): String {
             return LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))

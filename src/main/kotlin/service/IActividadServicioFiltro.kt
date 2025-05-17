@@ -11,4 +11,5 @@ interface IActividadServicioFiltro {
     fun filtrarPorEtiqueta(etiqueta: String): List<Actividad>
     fun filtrarPorUsuario(nombreUsuario: String): List<Tarea>
     fun filtrarPorFecha(rango: String): List<Evento>
+    fun listarTareas(): List<Tarea>
 }

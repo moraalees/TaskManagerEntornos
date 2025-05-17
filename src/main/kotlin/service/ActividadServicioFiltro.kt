@@ -5,9 +5,14 @@ import es.prog2425.taskmanager.model.Actividad
 import es.prog2425.taskmanager.model.Estado
 import es.prog2425.taskmanager.model.Evento
 import es.prog2425.taskmanager.model.Tarea
+import es.prog2425.taskmanager.model.Usuario
 import java.time.LocalDate
 
 class ActividadServicioFiltro(val repositorio : IActividadRepository) : IActividadServicioFiltro {
+    val actividades = mutableListOf<Actividad>()
+    val usuarios = mutableListOf<Usuario>()
+
+
     override fun filtrarPorTipo(tipo: Class<out Actividad>): List<Actividad> {
         return repositorio.obtenerActividades().filter { it.javaClass == tipo }
     }
@@ -18,6 +23,7 @@ class ActividadServicioFiltro(val repositorio : IActividadRepository) : IActivid
         return repositorio.obtenerActividades()
             .filter { it.obtenerEtiquetas().contains(etiqueta) }
     }
+
     override fun filtrarPorUsuario(nombreUsuario: String): List<Tarea> {
         val usuario = usuarios.find { it.nombre == nombreUsuario }
         return if (usuario != null) {
@@ -26,6 +32,8 @@ class ActividadServicioFiltro(val repositorio : IActividadRepository) : IActivid
             emptyList()
         }
     }
+
+
     override fun filtrarPorFecha(rango: String): List<Evento> {
         val eventos = repositorio.obtenerActividades().filterIsInstance<Evento>()
         val hoy = LocalDate.now()
@@ -42,5 +50,10 @@ class ActividadServicioFiltro(val repositorio : IActividadRepository) : IActivid
             }
             else -> emptyList()
         }
+    }
+    override fun listarTareas(): List<Tarea> {
+        return repositorio.obtenerActividades()
+            .filterIsInstance<Tarea>()
+            .sortedBy { it.id }
     }
 }

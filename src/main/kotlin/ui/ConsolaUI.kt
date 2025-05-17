@@ -52,24 +52,31 @@ class ConsolaUI(private val actividadServicios: ActividadServicios) : IEntradaSa
             else -> println("❌ Opción no válida.")
         }
     }
-    private fun crearTarea() {
+    fun crearTarea() {
         println("\n*** Crear nueva tarea ***")
         print("Ingresa la descripción de la tarea: ")
         val descripcion = readLine()?.trim().orEmpty()
         print("Ingresa las etiquetas separadas por ';' (ejemplo: urgente;revisión): ")
         val etiquetas = readLine()?.trim().orEmpty()
+
         if (descripcion.isBlank()) {
             println("❌ Error: La descripción no puede estar vacía.")
             return
         }
+
         try {
             val tarea = Tarea.creaInstancia(descripcion, etiquetas)
             actividadServicios.crearTarea(tarea)
             println("✅ Tarea creada correctamente con ID: ${tarea.id}")
+        } catch (e: IllegalArgumentException) {
+            // Por ejemplo, si creaInstancia lanza esta excepción al validar parámetros
+            println("❌ Error de validación: ${e.message}")
         } catch (e: Exception) {
-            println("❌ Error al crear la tarea: ${e.message}")
+            // Por si queda alguna excepción no prevista, opcional
+            println("❌ Error inesperado al crear la tarea: ${e.message}")
         }
     }
+
     private fun crearEvento() {
         println("\n*** Crear nuevo evento ***")
         print("Ingresa la descripción del evento: ")
@@ -119,42 +126,78 @@ class ConsolaUI(private val actividadServicios: ActividadServicios) : IEntradaSa
             }
         }
     }
-    private fun asignarTareaAUsuario() {
+
+    //***Refactorización***
+    fun asignarTareaAUsuario() {
         println("\n*** Asignar tarea a usuario ***")
         val tareas = actividadServicios.listarTareas()
         if (tareas.isEmpty()) {
             println("No hay tareas disponibles para asignar.")
             return
         }
+
         println("Tareas disponibles:")
-        tareas.forEach { tarea ->
-            println(tarea.obtenerDetalle())
-        }
-        print("Ingresa el ID de la tarea a asignar: ")
-        val idTarea = readLine()?.toIntOrNull()
-        if (idTarea == null) {
-            println("❌ Error: Debes ingresar un número válido.")
-            return
-        }
-        val tarea = tareas.find { it.id == idTarea }
-        if (tarea == null) {
-            println("❌ Error: No existe una TAREA con ID $idTarea (¿Es un evento?)")
-            return
-        }
-        print("Ingresa el nombre del usuario: ")
-        val nombreUsuario = readLine()?.trim().orEmpty()
-        if (nombreUsuario.isBlank()) {
-            println("❌ Error: El nombre no puede estar vacío.")
-            return
-        }
+        tareas.forEach { println(it.obtenerDetalle()) }
+
+        val tarea = obtenerTareaSeleccionada(tareas) ?: return
+        val usuario = obtenerUsuarioDesdeInput() ?: return
+
         try {
-            val usuario = actividadServicios.obtenerOCrearUsuario(nombreUsuario)
             actividadServicios.asignarUsuarioATarea(tarea, usuario)
-            println("✅ Tarea '$idTarea - ${tarea.descripcion}' asignada a ${usuario.nombre}")
+            println("✅ Tarea '${tarea.id} - ${tarea.descripcion}' asignada a ${usuario.nombre}")
         } catch (e: Exception) {
             println("❌ Error al asignar: ${e.message}")
         }
     }
+
+    fun obtenerTareaSeleccionada(tareas: List<Tarea>): Tarea? {
+        print("Ingresa el ID de la tarea a asignar: ")
+        val idTarea = readLine()?.toIntOrNull()
+        if (idTarea == null) {
+            println("❌ Error: Debes ingresar un número válido.")
+            return null
+        }
+        val tarea = tareas.find { it.id == idTarea }
+        if (tarea == null) {
+            println("❌ Error: No existe una TAREA con ID $idTarea (¿Es un evento?)")
+            return null
+        }
+        return tarea
+    }
+
+    fun obtenerUsuarioDesdeInput(): Usuario? {
+        print("Ingresa el nombre del usuario: ")
+        val nombreUsuario = readLine()?.trim().orEmpty()
+        if (nombreUsuario.isBlank()) {
+            println("❌ Error: El nombre no puede estar vacío.")
+            return null
+        }
+        return actividadServicios.obtenerOCrearUsuario(nombreUsuario)
+    }
+    //*************
+
+
+    fun seleccionarTareaPorId(tareas: List<Tarea>, idTarea: Int?): Tarea? {
+        if (idTarea == null) {
+            println("❌ Error: Debes ingresar un número válido.")
+            return null
+        }
+        val tarea = tareas.find { it.id == idTarea }
+        if (tarea == null) {
+            println("❌ Error: No existe una TAREA con ID $idTarea (¿Es un evento?)")
+            return null
+        }
+        return tarea
+    }
+
+    fun obtenerUsuarioPorNombre(nombreUsuario: String): Usuario? {
+        if (nombreUsuario.isBlank()) {
+            println("❌ Error: El nombre no puede estar vacío.")
+            return null
+        }
+        return actividadServicios.obtenerOCrearUsuario(nombreUsuario)
+    }
+
     private fun cambiarEstadoTarea() {
         println("\n*** Cambiar estado de tarea ***")
         val tareas = actividadServicios.listarTareas()
@@ -267,3 +310,4 @@ class ConsolaUI(private val actividadServicios: ActividadServicios) : IEntradaSa
     }
 
 }
+
