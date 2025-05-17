@@ -3,9 +3,11 @@ import io.kotest.matchers.shouldBe
 import io.kotest.assertions.throwables.shouldThrow
 import io.mockk.every
 import io.mockk.mockk
-import es.prog2425.taskmanager.model.*
-import es.prog2425.taskmanager.data.*
-import es.prog2425.taskmanager.service.*
+import es.prog2425.taskmanager.model.Tarea
+import es.prog2425.taskmanager.model.OtraActividad
+import es.prog2425.taskmanager.model.Estado
+import es.prog2425.taskmanager.data.IActividadRepository
+import es.prog2425.taskmanager.service.ActividadServicios
 
 class ActividadServiceTest : DescribeSpec({
 
