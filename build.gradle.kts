@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm") version "2.0.20"
     id("org.jetbrains.kotlin.plugin.allopen") version "2.0.20"
+    id("io.gitlab.arturbosch.detekt") version "1.23.6"
 }
 
 group = "es.prog2425.taskmanager"
@@ -25,4 +26,9 @@ tasks.test {
 
 kotlin {
     jvmToolchain(21)
+}
+
+detekt {
+    buildUponDefaultConfig = true
+    allRules = false
 }
