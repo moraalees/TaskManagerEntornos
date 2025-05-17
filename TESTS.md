@@ -50,6 +50,26 @@ Para cada función/método, he tomado la decisión de asiganrle a cada uno un va
 
 # 4.- Tests
 
+Para poder realizar las pruebas de forma correcta, primero he tenido que agregar al archivo `build.gradle.kts` algunas dependencias para poder usar Kotest y MockK en el proyecto.
+
+### [`build.gradle.kts`](https://github.com/moraalees/TaskManagerEntornos/blob/9ad6431727d605bffbf9635d073d2d890f957e9c/build.gradle.kts#L13C1-L24C2)
+
+Sobre cómo he realizado los tests, he decidido crear una clase que utilice dichas dependencias (Kotest / MockK). En lugar de poner, como se hace tradicionalmente, @Tests al inicio del código, con hacer que la clase herede de `DescribeSpec` ya bastaría. En esta clase, 'mockeo' el directorio para simular el comportamiento de `IActividadRepository`. El método `mockk(relaxed = true)` hace que se pueda crear un mockK del repositorio en el que los métodos no necesitan ser definidos anteriormente para devolver valores por defecto.
+
+### [`ActividadServiceTest`](https://github.com/moraalees/TaskManagerEntornos/blob/9ad6431727d605bffbf9635d073d2d890f957e9c/src/test/kotlin/ActividadServiceTest.kt#L10C1-L18C6)
+
+Acerca de el método `filtrarPorTipo`, se mira si el servicio devuelve solo las actividades del tipo indicado. Creo una lista con dos objetos de tipo Tarea y uno de otro nuevo tipo inventado (`OtraActividad`), usando mockK para que el repositorio retorne dicha lista. Luego, el método verifica que el resultado contenga solo instancias de Tarea. Finalmente, compruebo que si se pasa null como tipo, se lanza una IllegalArgumentException.
+
+### [`filtrarPorTipo`](https://github.com/moraalees/TaskManagerEntornos/blob/9ad6431727d605bffbf9635d073d2d890f957e9c/src/test/kotlin/ActividadServiceTest.kt#L20C5-L40C6)
+
+En el método `filtrarPorEstado`, se practica si el servicio devuelva las tareas que coinciden con un estado que exista. Simulo una lista de tareas con distintos estados, y utilizo mockK para hacer que el repositorio retorne esa lista. Luego verifico que solo se incluyan tareas cuyo estado sea EN_PROGRESO. Por último compruebo que si no hay coincidencias con el estado proporcionado, el método retorne una lista vacía.
+
+### [`filtrarPorEstado`](https://github.com/moraalees/TaskManagerEntornos/blob/9ad6431727d605bffbf9635d073d2d890f957e9c/src/test/kotlin/ActividadServiceTest.kt#L42C5-L68C6)
+
+En `obtenerTareaPorId`, pongo a prueba que el servicio devuelva correctamente una tarea a partir de su correspondiente ID. Se crea una lista simulada de tareas y se empleo mockK para que el repositorio la retorne. Verifico que el ID buscado coincida con el de la tarea que realmente queremos encontrar. Además, la prueba incluye un caso donde se busca un ID inexistente como 999, y comprueba que el resultado sea null.
+
+### [`obtenerTareaPorId`](https://github.com/moraalees/TaskManagerEntornos/blob/9ad6431727d605bffbf9635d073d2d890f957e9c/src/test/kotlin/ActividadServiceTest.kt#L70C5-L95C6)
+
 ---
 
 # 5.- Resultados
@@ -57,3 +77,6 @@ Para cada función/método, he tomado la decisión de asiganrle a cada uno un va
 Tras ejecutar los respectivos tests que contiene la clase `ActividadServiceTest`, hemos obtenido que las pruebas unitarias se han realizado correctamente, en un total de 8 segundos!
 
 [Resultado](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-16%20133058.png)
+
+Con esta captura, determinamos que 4 / 4 procesos se han ejecutado y finalizado correctamente, en un total de 8 segundos aproximadamente.
+Los casos de error lanzan la excepción que se desea o retornan un valor esperado, ya sea en mi caso null.
