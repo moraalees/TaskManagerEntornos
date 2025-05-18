@@ -70,22 +70,44 @@ Tras modificar el archivo y volver a usar el comando para realizar las pruebas d
 
 ### [1]
 
-1.a ¿Que herramienta has usado, y para que sirve?  
+1.a ¿Que herramienta has usado, y para que sirve?
+He usado Detekt. Es una herramienta de análisis estático que sirve para proyectos en Kotlin. Se usa con el fin de detectar ya sean errores, malas prácticas o problemas en el código, sin ejecutar la aplicación. Además, analiza el código fuente y alerta de advertencias o errores que pueden afectar el programa.
+
 1.b ¿Cuales son sus características principales?  
+- Tiene diversas reglas que pueden see modificadas por el usuario (como yo hice con `NewLineAtEndOfFile`).
+- Puede ser integrado con diferentes estructuras de proyectos (Gradle en mi caso).
+- Genera informes automáticos en diferentes formatos.
+- Analiza código sin ejecutar el programa.
+
 1.c ¿Qué beneficios obtengo al utilizar dicha herramienta?
+He notado que usando Detekt he podido identficar diferentes errores o mejoras dentro de mi código, como el constructor vacío o las excepciones genéricas. Me ha ayudado también a la hora revisar código, ya que de esta forma ha podido identificar automáticamente ciertos puntos de mejora o de error de mi propio código en lugar de hacerlo yo manualmente.
 
 ### [2]
 
-2.a De los errores/problemas que la herramienta ha detectado y te ha ayudado a solucionar, ¿cual es el que te ha parecido que ha mejorado más tu código?  
-2.b ¿La solución que se le ha dado al error/problema la has entendido y te ha parecido correcta?  
+2.a De los errores/problemas que la herramienta ha detectado y te ha ayudado a solucionar, ¿cual es el que te ha parecido que ha mejorado más tu código?
+Desde mi punto de vista, yo creo que el error de la excepción genérica ayuda bastante a comprender y aplicar en un futuro que no se deberían de poner `Exception` así porque así, que es mejor aplicar el error concreto.
+
+2.b ¿La solución que se le ha dado al error/problema la has entendido y te ha parecido correcta?
+He entendido que la excepción concreta se debe de usar en lugar de la genérica. Me parece del todo correcto haberlas cambiado.
+
 2.c ¿Por qué se ha producido ese error/problema?
+Ese error se produce porque se está empleando una excepción demasiado genérica, lo cual no es considerado del todo una buena práctica. Usar excepciones genéricas permite ocultar la excepción concreta, la cuál es mejor manejar de otra forma
 
 ### [3]
 
-3.a ¿Que posibilidades de configuración tiene la herramienta?  
-3.b De esas posibilidades de configuración, ¿cuál has configurado para que sea distinta a la que viene por defecto?  
-3.c Pon un ejemplo de como ha impactado en tu código, enlazando al código anterior al cambio, y al posterior al cambio,
+3.a ¿Que posibilidades de configuración tiene la herramienta?
+- Poder manipular qué errores cuentan o no a la hora del análisis.
+- Elegir el tipo de archivo del informe a descargar.
+- Poder declarar un nuevo error o regla.
+
+3.b De esas posibilidades de configuración, ¿cuál has configurado para que sea distinta a la que viene por defecto?
+Como ya mostré anteriormente, el error de `NewLineAtEndOfFile` me parecía demasiado absurdo. Por eso mismo, lo desactivé y modifiqué para que no salte en el análisis.
+
+3.c Pon un ejemplo de como ha impactado en tu código, enlazando al código anterior al cambio, y al posterior al cambio.
+Lo puse anteriormente. El análisis pasó de 36 errores sin la modificación, a 26. Se eliminaron 10 errores o avisos al desactivar dicho error.
 
 ### [4]
 
 4 ¿Qué conclusiones sacas después del uso de estas herramientas?
+Realmente me parecieron muy útiles ya que, como comenté, te permiten ahorrar tiempo de búsqueda de errores manual al hacerlo automáticamente.
+No comenté un error que me apareció, el cual es el de que una clase posee demasiadas funciones. Si me hubiera dedicado a arreglar dicho error, este me hubiera ayudado a entender mejor que las clases pueden ser divididas en otras más pequeñas, a lo que se le llama responsabilidad única.
