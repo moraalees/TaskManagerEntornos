@@ -106,3 +106,11 @@ Sobre los commits acerca de cuándo, cómo y qué modifiqué para resolver los e
 ### [`Commit 3`](https://github.com/moraalees/TaskManagerEntornos/commit/73685f0ec4e1854e0435425aca0738a4d8cbdd76)
 ### [`Commit 4`](https://github.com/moraalees/TaskManagerEntornos/commit/d3bec0bab8f0b2c866b1c7f33c747c06dba5af5c)
 ### [`Commit 5`](https://github.com/moraalees/TaskManagerEntornos/commit/cbca5ab63e332e19af0c47c62b22954bb39bb305)
+
+Aquí la nueva detección de errores tras modificar el código: [`MENOS ERRORES`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20125455.png)
+
+---
+
+## 5.- Modificación en Detekt
+
+A la hora 
