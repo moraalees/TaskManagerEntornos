@@ -54,3 +54,35 @@ Para cada tipo de error, documentar:
 4 ¿Qué conclusiones sacas después del uso de estas herramientas?
 
 ---
+
+## 1.- Instalación de Detekt
+
+Tras revisar y entender el trabajo que tenía que hacer, decidí echar un vistazo a los apuntes que tenía a mi disponibilidad sobre `Ktlint` y `Detekt`. Me percaté de que debía o bien instalar desde el IDE o agregar ciertas dependencias en el archivo `build.gradle.kts`. No obstante, cuando intenté instalarlo desde donde se me dijo que se podía, no encontré por ningún lado dónde instalar, en mi caso, Detekt. Es por esto, que al final me decanté por agregar a dicho archivo ya mencionado algunas dependencias.
+
+### [`No estan Detekt / Ktlint`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20123301.png)
+
+### [`Dependencias nuevas`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20123329.png)
+
+---
+
+## 2.- Integración
+
+Tras agregar las dependencias, tuve que ingresar en la terminal de mi proyecto cierto comando: `./gradlew detektGenerateConfig`. Todo esto con el fin de generar el archivo de configuración de Detekt, para ya después poder realizar los tests.
+
+### [`Comando e instalación`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20123507.png)
+
+Ya una vez generado el archivo, debía ejecutar el comando `./gradlew detekt` para poder ver los resultados de la detección de errores. Una vez ejecutado, saldrían los diferentes errores del programa.
+
+### [`Análisis completado`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20123640.png)
+
+---
+
+## 3.- Identificación de errores
+
+Luego de consultar los 43 errores del análisis, decidí solucionar 5 diferentes entre ellos:
+
+- [`Excepción de Evento.kt`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20124225.png): La excepción que posee un método de la clase Evento es demasiado genérica, cuando debería de ser específica.
+- [`Nueva línea en Actividad`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20124522.png): La clase Actividad no acaba con una nueva línea.
+- [`Imports demasido genéricos en ActividadServiceTest`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20124815.png): La clase creada para los tests de las pruebas unitarias contienen unos `imports` bastante genéricos, lo que es llamado WildcartImport.
+- [`Constructor vacío en Filtro`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20125026.png): La clase Filtro contiene un constructor vacío, que fácilmente debería de ser eliminado.
+- [`Filtro podría se de clase Object`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20125205.png): La clase Filtro debería de ser un objeto, ya que solo posee funciones.
