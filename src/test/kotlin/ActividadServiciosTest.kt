@@ -3,7 +3,11 @@ import es.prog2425.taskmanager.model.Actividad
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.assertions.throwables.shouldThrow
-import io.mockk.*
+import io.mockk.every
+import io.mockk.just
+import io.mockk.mockk
+import io.mockk.Runs
+import io.mockk.verify
 import es.prog2425.taskmanager.model.Evento
 import es.prog2425.taskmanager.model.Tarea
 import es.prog2425.taskmanager.model.Usuario
