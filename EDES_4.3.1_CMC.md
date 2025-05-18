@@ -113,4 +113,6 @@ Aquí la nueva detección de errores tras modificar el código: [`MENOS ERRORES`
 
 ## 5.- Modificación en Detekt
 
-A la hora 
+A la hora de volver a mirar los errores, me percaté que, como es normal, todas las clases presentaban el error de `NewLineAtEndOfFile`. Este error no lo tomé demasiado en serio, y de hecho sigo sin entender por qué es considerado un error. Es por esto mismo que decidí explorar el archivo de configuración de Detekt para hacer que no salte aún cuando no hay una línea en blanco en las clases. Simplemente abrí el archivo y busqué el nombre del error. Tras localizarlo y ver que estaba en `true`, lo cambié y puse `false`. [`Antes`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20125723.png) / [`Después`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20125734.png)
+
+Tras modificar el archivo y volver a usar el comando para realizar las pruebas de los errores, el número bajó considerablemente. [`MENOS ERRORES`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20125754.png)
