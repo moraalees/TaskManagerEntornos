@@ -83,6 +83,26 @@ Luego de consultar los 43 errores del análisis, decidí solucionar 5 diferentes
 
 - [`Excepción de Evento`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20124225.png): La excepción que posee un método de la clase Evento es demasiado genérica, cuando debería de ser específica.
 - [`Nueva línea en Actividad`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20124522.png): La clase Actividad no acaba con una nueva línea.
-- [`Imports demasido genéricos en ActividadServiceTest`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20124815.png): La clase creada para los tests de las pruebas unitarias contienen unos `imports` bastante genéricos, lo que es llamado WildcartImport.
+- [`Imports demasido genéricos en ActividadServiceTest`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20124815.png): La clase creada para los tests de las pruebas unitarias contienen unos `imports` bastante genéricos, lo que es llamado `WildcartImport`.
 - [`Constructor vacío en Filtro`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20125026.png): La clase Filtro contiene un constructor vacío, que fácilmente debería de ser eliminado.
 - [`Filtro podría se de clase Object`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20125205.png): La clase Filtro debería de ser un objeto, ya que solo posee funciones.
+
+---
+
+## 4.- Solución de errores
+
+Tras identificar los diferentes errores, decidí ponerme manos a la obra para solucionarlos uno a uno:
+
+* 1.- Evento: La excepción usada en el método `validarFecha(fecha: String)` poseía una `Exception`, con lo cual sustituí dicha excepción por una más adecuada en el contexto de dicho método, una llamada `DateTimeParseException`. [`Antes`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20124259.png) / [`Después`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20124251.png)
+* 2.- Actividad: La clase actividad dio un error ya que esta no acababa con una nueva línea... Simplemente agregué una. [`Antes`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20124621.png) / [`Después`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20124628.png)
+* 3.- ActividadServiceTest: La clase usada en las pruebas unitarias presentaba un WildcartImport. Tras revisar lo que realmente debería importar la clase, sustituí dichos imports por unos más apropiados. [`Antes`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20124800.png) / [`Después`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20124930.png)
+* 4.- Filtro (Constructor): Filtro poseía un constructor vacío porque probablemente en un pasado se decidió que a lo mejor debía de recibir algún parámetro. Simplemente lo quité. [`Antes`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20125031.png) / [`Después`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20125036.png)
+* 5.- Filtro (Tipo de Clase): Al no poseer nigún parámetro o instancias dentro de esta, la clase podría ser perfectamente un `Object`. Cambié su tipo simplemente para solucionar el error. [`Solución`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20125405.png)
+
+Sobre los commits acerca de cuándo, cómo y qué modifiqué para resolver los errores:
+
+### [`Commit 1`]()
+### [`Commit 2`]()
+### [`Commit 3`]()
+### [`Commit 4`]()
+### [`Commit 5`]()
