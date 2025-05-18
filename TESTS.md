@@ -51,4 +51,8 @@ Para cada uno de estos métodos he definido al menos dos pruebas: una con entrad
 
 # 4.- Tests
 
+Para poder ejecutar correctamente las pruebas unitarias, fue necesario añadir las dependencias correspondientes a `Kotest` y `MockK` en el archivo `build.gradle.kts`.
+
+### [`build.gradle.kts`](https://github.com/moraalees/TaskManagerEntornos/blob/Fran/build.gradle.kts)
+
 
