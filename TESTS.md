@@ -72,3 +72,11 @@ Para el caso de `filtrarPorUsuario`, los tests comprueban si el servicio devuelv
 ### [`filtrarPorUsuario`](https://github.com/moraalees/TaskManagerEntornos/blob/Fran/src/test/ActividadServiceTest.kt)
 
 ---
+
+# 5.- Resultados
+
+Tras ejecutar todos los tests en la clase `ActividadServiceTest`, los resultados han sido exitosos. Las pruebas se han completado correctamente en un tiempo aproximado de 8 segundos, como se muestra en la siguiente imagen:
+
+[Resultado](https://github.com/moraalees/TaskManagerEntornos/blob/Fran/images/Captura%20de%20pantalla%202025-05-18%20122616.png)
+
+Esto confirma que las funciones analizadas y probadas responden correctamente tanto en situaciones normales como en casos límite, cumpliendo con las expectativas establecidas en cada caso de uso.
