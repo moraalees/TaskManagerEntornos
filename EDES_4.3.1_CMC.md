@@ -102,7 +102,7 @@ Tras identificar los diferentes errores, decidí ponerme manos a la obra para so
 Sobre los commits acerca de cuándo, cómo y qué modifiqué para resolver los errores:
 
 ### [`Commit 1`](https://github.com/moraalees/TaskManagerEntornos/commit/0fea1ce49b535240a1dfe59e811b70a72f7f2f53)
-### [`Commit 2`]()
-### [`Commit 3`]()
-### [`Commit 4`]()
-### [`Commit 5`]()
+### [`Commit 2`](https://github.com/moraalees/TaskManagerEntornos/commit/0b10532807250870a8fdad547ae1e474a4bd9c78)
+### [`Commit 3`](https://github.com/moraalees/TaskManagerEntornos/commit/73685f0ec4e1854e0435425aca0738a4d8cbdd76)
+### [`Commit 4`](https://github.com/moraalees/TaskManagerEntornos/commit/d3bec0bab8f0b2c866b1c7f33c747c06dba5af5c)
+### [`Commit 5`](https://github.com/moraalees/TaskManagerEntornos/commit/cbca5ab63e332e19af0c47c62b22954bb39bb305)
