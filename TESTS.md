@@ -55,4 +55,20 @@ Para poder ejecutar correctamente las pruebas unitarias, fue necesario añadir l
 
 ### [`build.gradle.kts`](https://github.com/moraalees/TaskManagerEntornos/blob/Fran/build.gradle.kts)
 
+En cuanto a la implementación de las pruebas, he utilizado una clase basada en `DescribeSpec`, que permite estructurar los tests de forma ordenada y clara. Gracias a `mockk(relaxed = true)`, se crea un repositorio simulado que no necesita definir comportamientos concretos para cada método.
 
+### [`ActividadServiceTest`](https://github.com/moraalees/TaskManagerEntornos/blob/Fran/src/test/ActividadServiceTest.kt)
+
+Para `filtrarPorTipo`, la prueba comprueba que el servicio devuelva únicamente las actividades que coinciden con el tipo proporcionado. También se incluye un test que verifica que pasar un valor `null` lanza la excepción correspondiente.
+
+### [`filtrarPorTipo`](https://github.com/moraalees/TaskManagerEntornos/blob/Fran/src/test/ActividadServiceTest.kt)
+
+En `filtrarPorEstado`, se valida que solo se devuelvan las tareas cuyo estado coincide exactamente con el estado dado. Además, se asegura que cuando no hay coincidencias, el método retorna una lista vacía sin fallos.
+
+### [`filtrarPorEstado`](https://github.com/moraalees/TaskManagerEntornos/blob/Fran/src/test/ActividadServiceTest.kt)
+
+Para el caso de `filtrarPorUsuario`, los tests comprueban si el servicio devuelve correctamente las tareas cuando el nombre del usuario existe en el sistema. También se incluye una prueba para verificar que si no se encuentra el usuario, el método retorna una lista vacía.
+
+### [https://github.com/moraalees/TaskManagerEntornos/blob/Fran/src/test/ActividadServiceTest.kt)
+
+---
