@@ -69,6 +69,6 @@ En `filtrarPorEstado`, se valida que solo se devuelvan las tareas cuyo estado co
 
 Para el caso de `filtrarPorUsuario`, los tests comprueban si el servicio devuelve correctamente las tareas cuando el nombre del usuario existe en el sistema. También se incluye una prueba para verificar que si no se encuentra el usuario, el método retorna una lista vacía.
 
-### [https://github.com/moraalees/TaskManagerEntornos/blob/Fran/src/test/ActividadServiceTest.kt)
+### [`filtrarPorUsuario`](https://github.com/moraalees/TaskManagerEntornos/blob/Fran/src/test/ActividadServiceTest.kt)
 
 ---
