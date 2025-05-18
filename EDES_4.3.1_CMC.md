@@ -101,7 +101,7 @@ Tras identificar los diferentes errores, decidí ponerme manos a la obra para so
 
 Sobre los commits acerca de cuándo, cómo y qué modifiqué para resolver los errores:
 
-### [`Commit 1`]()
+### [`Commit 1`](https://github.com/moraalees/TaskManagerEntornos/commit/0fea1ce49b535240a1dfe59e811b70a72f7f2f53)
 ### [`Commit 2`]()
 ### [`Commit 3`]()
 ### [`Commit 4`]()
