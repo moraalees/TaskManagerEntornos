@@ -81,7 +81,7 @@ Ya una vez generado el archivo, debía ejecutar el comando `./gradlew detekt` pa
 
 Luego de consultar los 43 errores del análisis, decidí solucionar 5 diferentes entre ellos:
 
-- [`Excepción de Evento.kt`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20124225.png): La excepción que posee un método de la clase Evento es demasiado genérica, cuando debería de ser específica.
+- [`Excepción de Evento`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20124225.png): La excepción que posee un método de la clase Evento es demasiado genérica, cuando debería de ser específica.
 - [`Nueva línea en Actividad`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20124522.png): La clase Actividad no acaba con una nueva línea.
 - [`Imports demasido genéricos en ActividadServiceTest`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20124815.png): La clase creada para los tests de las pruebas unitarias contienen unos `imports` bastante genéricos, lo que es llamado WildcartImport.
 - [`Constructor vacío en Filtro`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20125026.png): La clase Filtro contiene un constructor vacío, que fácilmente debería de ser eliminado.
