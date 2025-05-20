@@ -33,3 +33,21 @@ Además, tras las pruebas, decidí arreglar el códgio gracias a las funcionalid
 1. Reemplazo de excepción genérica por específica: En crearEvento(), reemplacé catch (Exception) por catch (IOException) para capturar errores más relevantes y evitar capturar lógicamente errores no controlados del todo. [`Commit Arreglo`](https://github.com/moraalees/TaskManagerEntornos/commit/4edb29601781829bc2821755f7f996573a67d03e)
 2. Sustitución de throw IllegalStateException por check: En Tarea.cambiarEstado(), sustituí una validación manual con throw por check, haciéndolo más propio de Kotlin y más claro semánticamente. [`Commit Arreglo`](https://github.com/moraalees/TaskManagerEntornos/commit/1b652a8820e12b43d377038a3a34c2901f42fa07)
 3. Simplificación de condicional con require: En cambiarEstadoTarea(), la verificación manual del rango se reemplazó por require, reduciendo la complejidad condicional y mejorando legibilidad. [`Commit Arreglo`](https://github.com/moraalees/TaskManagerEntornos/commit/e3e382fc195f8dc4b7bab8952702f1f382ffe1ca)
+
+---
+
+## 4.- Preguntas
+
+[1]
+1.a ¿Qué code smell y patrones de refactorización has aplicado?
+
+
+1.b Teniendo en cuenta aquella funcionalidad que tiene pruebas unitarias, selecciona un patrón de refactorización de los que has aplicado y que están cubierto por los test unitarios. ¿Porque mejora o no mejora tu código? Asegurate de poner enlaces a tu código
+
+
+[2]
+2.a Describe el proceso que sigues para asegurarte que la refactorización no afecta a código que ya tenias desarrollado.
+
+
+[3]
+3.a ¿Que funcionalidad del IDE has usado para aplicar la refactorización seleccionada? Si es necesario, añade capturas de pantalla para identificar la funcionalidad.
