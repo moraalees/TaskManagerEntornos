@@ -122,39 +122,43 @@ class ConsolaUI(private val actividadServicios: ActividadServicios) : IEntradaSa
     private fun asignarTareaAUsuario() {
         println("\n*** Asignar tarea a usuario ***")
         val tareas = actividadServicios.listarTareas()
+
         if (tareas.isEmpty()) {
             println("No hay tareas disponibles para asignar.")
-            return
-        }
-        println("Tareas disponibles:")
-        tareas.forEach { tarea ->
-            println(tarea.obtenerDetalle())
-        }
-        print("Ingresa el ID de la tarea a asignar: ")
-        val idTarea = readLine()?.toIntOrNull()
-        if (idTarea == null) {
-            println("❌ Error: Debes ingresar un número válido.")
-            return
-        }
-        val tarea = tareas.find { it.id == idTarea }
-        if (tarea == null) {
-            println("❌ Error: No existe una TAREA con ID $idTarea (¿Es un evento?)")
-            return
-        }
-        print("Ingresa el nombre del usuario: ")
-        val nombreUsuario = readLine()?.trim().orEmpty()
-        if (nombreUsuario.isBlank()) {
-            println("❌ Error: El nombre no puede estar vacío.")
-            return
-        }
-        try {
-            val usuario = actividadServicios.obtenerOCrearUsuario(nombreUsuario)
-            actividadServicios.asignarUsuarioATarea(tarea, usuario)
-            println("✅ Tarea '$idTarea - ${tarea.descripcion}' asignada a ${usuario.nombre}")
-        } catch (e: Exception) {
-            println("❌ Error al asignar: ${e.message}")
+        } else {
+            println("Tareas disponibles:")
+            tareas.forEach { tarea ->
+                println(tarea.obtenerDetalle())
+            }
+
+            print("Ingresa el ID de la tarea a asignar: ")
+            val idTarea = readLine()?.toIntOrNull()
+
+            val tarea = idTarea?.let { id -> tareas.find { it.id == id } }
+
+            if (idTarea == null) {
+                println(" Error: Debes ingresar un número válido.")
+            } else if (tarea == null) {
+                println(" Error: No existe una TAREA con ID $idTarea (¿Es un evento?)")
+            } else {
+                print("Ingresa el nombre del usuario: ")
+                val nombreUsuario = readLine()?.trim().orEmpty()
+
+                if (nombreUsuario.isBlank()) {
+                    println(" Error: El nombre no puede estar vacío.")
+                } else {
+                    try {
+                        val usuario = actividadServicios.obtenerOCrearUsuario(nombreUsuario)
+                        actividadServicios.asignarUsuarioATarea(tarea, usuario)
+                        println(" Tarea '$idTarea - ${tarea.descripcion}' asignada a ${usuario.nombre}")
+                    } catch (e: Exception) {
+                        println(" Error al asignar: ${e.message}")
+                    }
+                }
+            }
         }
     }
+
     private fun cambiarEstadoTarea() {
         println("\n*** Cambiar estado de tarea ***")
         val tareas = actividadServicios.listarTareas()
