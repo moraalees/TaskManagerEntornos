@@ -24,6 +24,10 @@ Sobre los 5 posibles candidatos para arreglar, he decicido centrarme en:
 
 Tras asegurar dichos errores o `code smells`, decidí crear la clase `RefactorTest`. Una vez creados los tests, comprobé que funcionaban de forma correcta: [`Evidencia`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/codeSmells/Captura%20de%20pantalla%202025-05-20%20233821.png)
 
+---
+
+## 3.- Desarrollo
+
 Además, tras las pruebas, decidí arreglar el códgio gracias a las funcionalidades del IDE. (Refactor -> RefactorizaciónNecesaria):
 
 1. Reemplazo de excepción genérica por específica: En crearEvento(), reemplacé catch (Exception) por catch (IOException) para capturar errores más relevantes y evitar capturar lógicamente errores no controlados del todo. [`Commit Arreglo`](https://github.com/moraalees/TaskManagerEntornos/commit/4edb29601781829bc2821755f7f996573a67d03e)
