@@ -23,3 +23,6 @@ El error era por tener demasiados return dentro de la función gestionarSubtarea
 En este error solo  cambie * en los imports porque IntelliJ lo marcan como mala práctica. En su lugar, puse solamente los imports de las funciones de mockk que realmente estoy utilizando, como mockk, every, verify... Así el código es más limpio, más claro, y cumple con las reglas de estilo del proyecto o del linter.
 
 Todos estos errores les he hecho captura y añadido a images 
+
+
+Cambie de true a false el Toomanyfalse
