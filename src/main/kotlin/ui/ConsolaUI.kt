@@ -2,6 +2,7 @@ package es.prog2425.taskmanager.ui
 
 import es.prog2425.taskmanager.model.*
 import es.prog2425.taskmanager.service.ActividadServicios
+import java.io.IOException
 
 class ConsolaUI(private val actividadServicios: ActividadServicios) : IEntradaSalida {
 
@@ -86,7 +87,7 @@ class ConsolaUI(private val actividadServicios: ActividadServicios) : IEntradaSa
         try {
             actividadServicios.crearEvento(descripcion, fecha, ubicacion, etiquetas)
             println("✅ Evento creado correctamente para el $fecha")
-        } catch (e: Exception) {
+        } catch (e: IOException) {
             println("❌ Error al crear el evento: ${e.message}")
         }
     }
