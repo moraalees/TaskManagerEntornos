@@ -32,29 +32,32 @@ Todos estos errores les he hecho captura y añadido a images
 
 ## [1]
 ### 1.a ¿Que herramienta has usado, y para que sirve? 
-
+He usado Detekt, una herramienta que revisa mi código para encontrar errores o malas prácticas.
 ### 1.b ¿Cuales son sus características principales?
-
+ Sus funciones principales son detectar un código raro, errores comunes y decirme cómo mejorar.
 ### 1.c ¿Qué beneficios obtengo al utilizar dicha herramienta?
-
+Me ayuda a escribir mejor el código desde el principio y a evitar problemas en el futuro.
 # [2]
 
 ### 2.a De los errores/problemas que la herramienta ha detectado y te ha ayudado a solucionar, ¿cual es el que te ha parecido que ha mejorado más tu código?
-
+El error que más me ayudó fue el de tener muchos return en una misma función.
 ### 2.b ¿La solución que se le ha dado al error/problema la has entendido y te ha parecido correcta?
-
+Sí, entendí la solución y me pareció correcta.
 ### 2.c ¿Por qué se ha producido ese error/problema?
-
+El error pasó porque usé varios return para salir de la función en diferentes partes, lo que la hacía más difícil de leer.
 # [3]
 
 ### 3.a ¿Que posibilidades de configuración tiene la herramienta? 
-
+Detekt se puede configurar para marcar ciertos errores, como la cantidad de return, el tamaño de las funciones...
 ### 3.b De esas posibilidades de configuración, ¿cuál has configurado para que sea distinta a la que viene por defecto?
-
+En mi caso, Detekt estaba configurado para permitir solo 2 return, y tuve que adaptar mi código a eso.
 ### 3.c Pon un ejemplo de como ha impactado en tu código, enlazando al código anterior al cambio, y al posterior al cambio,
+Antes usaba return directo cuando algo fallaba. Ahora uso if-else para organizar mejor la función.
 
 # [4]
 
 ### 4 ¿Qué conclusiones sacas después del uso de estas herramientas?
+
+Detekt me ha ayudado a escribir código más claro y ordenado. Aunque al principio cuesta cambiar cosas, luego veo que el resultado es mejor y aprendo buenas prácticas.
 
 
