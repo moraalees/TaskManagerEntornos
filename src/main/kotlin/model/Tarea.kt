@@ -24,9 +24,8 @@ class Tarea constructor(descripcion: String) : Actividad(descripcion) {
     }
 
     fun cambiarEstado(nuevoEstado: Estado) {
-        if (nuevoEstado == Estado.FINALIZADA && tieneSubtareasAbiertas()) {
-            agregarHistorial("Intento de cerrar tarea fallido: subtareas abiertas")
-            throw IllegalStateException("No se puede cerrar la tarea: tiene subtareas abiertas")
+        check(!(nuevoEstado == Estado.FINALIZADA && tieneSubtareasAbiertas())) {
+            "No se puede cerrar la tarea: tiene subtareas abiertas"
         }
 
         estado = nuevoEstado
