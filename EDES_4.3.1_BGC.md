@@ -1,15 +1,15 @@
-##1.-Identifica los errores 
+## 3-4.-Identifica los errores 
 He elegido los siguientes errores de mi código.
 
-1.-C:\Users\gomez\OneDrive\Escritorio\fullset\Alberti\Entornos de desarrollo\taskmanager_kotest\TaskManagerEntornos\src\main\kotlin\model\Estado.kt:5:2: The file C:\Users\gomez\OneDrive\Escritorio\fullset\Alberti\Entornos de desarrollo\taskmanager_kotest\TaskManagerEntornos\src\main\kotlin\model\Estado.kt is not ending with a new line. [NewLineAtEndOfFile]  
+## 1.-C:\Users\gomez\OneDrive\Escritorio\fullset\Alberti\Entornos de desarrollo\taskmanager_kotest\TaskManagerEntornos\src\main\kotlin\model\Estado.kt:5:2: The file C:\Users\gomez\OneDrive\Escritorio\fullset\Alberti\Entornos de desarrollo\taskmanager_kotest\TaskManagerEntornos\src\main\kotlin\model\Estado.kt is not ending with a new line. [NewLineAtEndOfFile]  
 
 Este error lo arreglé con una línea en blanco al final del archivo. Aunque no afecta al código, algunas herramientas como linters lo necesitan porque es una buena práctica: ayuda a evitar problemas en sistemas de control de versiones y mejora la legibilidad al concatenar archivos en Git
 
-2.-C:\Users\gomez\OneDrive\Escritorio\fullset\Alberti\Entornos de desarrollo\taskmanager_kotest\TaskManagerEntornos\src\main\kotlin\model\Filtro.kt:6:1: The class Filtro only contains utility functions. Consider defining it as an object. [UtilityClassWithPublicConstructor]
+## 2.-C:\Users\gomez\OneDrive\Escritorio\fullset\Alberti\Entornos de desarrollo\taskmanager_kotest\TaskManagerEntornos\src\main\kotlin\model\Filtro.kt:6:1: The class Filtro only contains utility functions. Consider defining it as an object. [UtilityClassWithPublicConstructor]
 
 Cambie class por object 
 
-3.-C:\Users\gomez\OneDrive\Escritorio\fullset\Alberti\Entornos de desarrollo\taskmanager_kotest\TaskManagerEntornos\src\main\kotlin\ui\ConsolaUI.kt:122:17: Function asignarTareaAUsuario has 4 return statements which exceeds the limit of 2. [ReturnCount]
+## 3.-C:\Users\gomez\OneDrive\Escritorio\fullset\Alberti\Entornos de desarrollo\taskmanager_kotest\TaskManagerEntornos\src\main\kotlin\ui\ConsolaUI.kt:122:17: Function asignarTareaAUsuario has 4 return statements which exceeds the limit of 2. [ReturnCount]
 
 El error aparece porque mi función asignarTareaAUsuario() tiene muchos return, y el analizador de código lo considera mala práctica. Para solucionarlo, agrupé las condiciones dentro de if/else para reducir  los return y mejorar la legibilidad del código.
 
@@ -25,4 +25,9 @@ En este error solo  cambie * en los imports porque IntelliJ lo marcan como mala 
 Todos estos errores les he hecho captura y añadido a images 
 
 
-Cambie de true a false el Toomanyfalse
+## 5.-Cambie de true a false el  TooManyFunctions
+
+
+## Responde a las preguntas 
+
+
