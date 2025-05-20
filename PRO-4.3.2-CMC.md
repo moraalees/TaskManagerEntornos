@@ -17,3 +17,15 @@ Dentro de esos 26 errores, que catalogué como `code smells`, se encuentran:
 
 ## 2.- Refactorizaciones
 
+Sobre los 5 posibles candidatos para arreglar, he decicido centrarme en:
+- Excepción de ConsolaUI / `Replace Exception with Specific`.
+- Excepción de Tarea / `Replace Exception with check/error`.
+- Función cambiarEstadoTarea / `Simplify Conditional`.
+
+Tras asegurar dichos errores o `code smells`, decidí crear la clase `RefactorTest`. Una vez creados los tests, comprobé que funcionaban de forma correcta: [`Evidencia`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/codeSmells/Captura%20de%20pantalla%202025-05-20%20233821.png)
+
+Además, tras las pruebas, decidí arreglar el códgio gracias a las funcionalidades del IDE. (Refactor -> RefactorizaciónNecesaria):
+
+1. Reemplazo de excepción genérica por específica: En crearEvento(), reemplacé catch (Exception) por catch (IOException) para capturar errores más relevantes y evitar capturar lógicamente errores no controlados del todo. [`Commit Arreglo`](https://github.com/moraalees/TaskManagerEntornos/commit/4edb29601781829bc2821755f7f996573a67d03e)
+2. Sustitución de throw IllegalStateException por check: En Tarea.cambiarEstado(), sustituí una validación manual con throw por check, haciéndolo más propio de Kotlin y más claro semánticamente. [`Commit Arreglo`](https://github.com/moraalees/TaskManagerEntornos/commit/1b652a8820e12b43d377038a3a34c2901f42fa07)
+3. Simplificación de condicional con require: En cambiarEstadoTarea(), la verificación manual del rango se reemplazó por require, reduciendo la complejidad condicional y mejorando legibilidad. [`Commit Arreglo`](https://github.com/moraalees/TaskManagerEntornos/commit/e3e382fc195f8dc4b7bab8952702f1f382ffe1ca)
