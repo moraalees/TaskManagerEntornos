@@ -12,3 +12,8 @@ Dentro de esos 26 errores, que catalogué como `code smells`, se encuentran:
 - La función cambiarEstadoTarea posee demasiados return en la clase ConsolaUI. Como patrón de refactorización emplearé `Simplify Conditional` o `Extract Method`.
 - WildcardImport en ConsolaUI. Como patrón de refactorización emplearé `Replace Wildcard Imports with Explicit Imports`.
 - Demasiadas funciones en ConsolaUI. Como patrón de refactorización emplearé `Split Class`.
+
+---
+
+## 2.- Refactorizaciones
+
