@@ -14,11 +14,11 @@ Tras revisar y entender el trabajo que tenía que hacer, decidí echar un vistaz
 
 ## 2.- Integración
 
-Tras agregar las dependencias, tuve que ingresar en la terminal de mi proyecto cierto comando: `./gradlew detektGenerateConfig`. Todo esto con el fin de generar el archivo de configuración de Detekt, para ya después poder realizar los tests.
+Tras agregar las dependencias, tuve que ingresar en la terminal de mi proyecto cierto comando: `.\gradlew detektGenerateConfig`. Todo esto con el fin de generar el archivo de configuración de Detekt, para ya después poder realizar los tests.
 
 ### [`Comando e instalación`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20123507.png)
 
-Ya una vez generado el archivo, debía ejecutar el comando `./gradlew detekt` para poder ver los resultados de la detección de errores. Una vez ejecutado, saldrían los diferentes errores del programa.
+Ya una vez generado el archivo, debía ejecutar el comando `.\gradlew detekt` para poder ver los resultados de la detección de errores. Una vez ejecutado, saldrían los diferentes errores del programa.
 
 ### [`Análisis completado`](https://github.com/moraalees/TaskManagerEntornos/blob/cristian/images/test/Captura%20de%20pantalla%202025-05-17%20123640.png)
 
