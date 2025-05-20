@@ -6,7 +6,8 @@ He elegido los siguientes errores de mi código.
 Este error lo arreglé con una línea en blanco al final del archivo. Aunque no afecta al código, algunas herramientas como linters lo necesitan porque es una buena práctica: ayuda a evitar problemas en sistemas de control de versiones y mejora la legibilidad al concatenar archivos en Git
 
 2.-C:\Users\gomez\OneDrive\Escritorio\fullset\Alberti\Entornos de desarrollo\taskmanager_kotest\TaskManagerEntornos\src\main\kotlin\model\Filtro.kt:6:1: The class Filtro only contains utility functions. Consider defining it as an object. [UtilityClassWithPublicConstructor]
-cambie class por object 
+
+Cambie class por object 
 
 3.-C:\Users\gomez\OneDrive\Escritorio\fullset\Alberti\Entornos de desarrollo\taskmanager_kotest\TaskManagerEntornos\src\main\kotlin\ui\ConsolaUI.kt:122:17: Function asignarTareaAUsuario has 4 return statements which exceeds the limit of 2. [ReturnCount]
 
