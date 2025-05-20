@@ -11,7 +11,12 @@ Cambie class por object
 
 3.-C:\Users\gomez\OneDrive\Escritorio\fullset\Alberti\Entornos de desarrollo\taskmanager_kotest\TaskManagerEntornos\src\main\kotlin\ui\ConsolaUI.kt:122:17: Function asignarTareaAUsuario has 4 return statements which exceeds the limit of 2. [ReturnCount]
 
+El error aparece porque mi función asignarTareaAUsuario() tiene muchos return, y el analizador de código lo considera mala práctica. Para solucionarlo, agrupé las condiciones dentro de if/else para reducir  los return y mejorar la legibilidad del código.
+
+
 4.-C:\Users\gomez\OneDrive\Escritorio\fullset\Alberti\Entornos de desarrollo\taskmanager_kotest\TaskManagerEntornos\src\main\kotlin\ui\ConsolaUI.kt:195:17: Function gestionarSubtareas has 3 return statements which exceeds the limit of 2. [ReturnCount]
+
+El error era por tener demasiados return dentro de la función gestionarSubtareas. Lo solucioné reorganizando el código para que en vez de salir antes con return, use if y controle los flujos dentro de la función. Así solo dejo un return general si no hay tareas, y el resto lo manejo con condiciones.
 
 5.-C:\Users\gomez\OneDrive\Escritorio\fullset\Alberti\Entornos de desarrollo\taskmanager_kotest\TaskManagerEntornos\src\test\kotlin\ActividadServiciosTest.kt:6:1: io.mockk.* is a wildcard import. Replace it with fully qualified imports. [WildcardImport]
 
