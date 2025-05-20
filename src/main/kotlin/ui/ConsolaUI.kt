@@ -199,34 +199,51 @@ class ConsolaUI(private val actividadServicios: ActividadServicios) : IEntradaSa
     private fun gestionarSubtareas() {
         println("\n*** Gestión de Subtareas ***")
         val tareas = actividadServicios.listarTareas()
+
+        if (tareas.isEmpty()) {
+            println("No hay tareas disponibles.")
+            return
+        }
+
         tareas.forEach { println("${it.id}: ${it.descripcion} (${it.obtenerSubtareas().size} subtareas)") }
         print("Selecciona el ID de la tarea madre: ")
-        val idMadre = readLine()?.toIntOrNull() ?: run {
+        val idMadre = readLine()?.toIntOrNull()
+
+        if (idMadre == null) {
             println("ID inválido")
-            return
-        }
-        val tareaMadre = tareas.find { it.id == idMadre } ?: run {
-            println("Tarea no encontrada")
-            return
-        }
-        println("\n1. Agregar subtarea")
-        println("2. Listar subtareas")
-        when (readLine()) {
-            "1" -> {
-                print("Descripción de la subtarea: ")
-                val desc = readLine()?.takeIf { it.isNotBlank() } ?: run {
-                    println("Descripción vacía")
-                    return
+        } else {
+            val tareaMadre = tareas.find { it.id == idMadre }
+            if (tareaMadre == null) {
+                println("Tarea no encontrada")
+            } else {
+                println("\n1. Agregar subtarea")
+                println("2. Listar subtareas")
+                when (readLine()) {
+                    "1" -> {
+                        print("Descripción de la subtarea: ")
+                        val desc = readLine()?.takeIf { it.isNotBlank() }
+                        if (desc == null) {
+                            println("Descripción vacía")
+                        } else {
+                            val subtarea = Tarea.creaInstancia(desc)
+                            tareaMadre.agregarSubtarea(subtarea)
+                            println("✅ Subtarea agregada")
+                        }
+                    }
+                    "2" -> {
+                        val subtareas = tareaMadre.obtenerSubtareas()
+                        if (subtareas.isEmpty()) {
+                            println("No hay subtareas registradas.")
+                        } else {
+                            subtareas.forEach { println(it.obtenerDetalle()) }
+                        }
+                    }
+                    else -> println("Opción no válida.")
                 }
-                val subtarea = Tarea.creaInstancia(desc)
-                tareaMadre.agregarSubtarea(subtarea)
-                println("✅ Subtarea agregada")
-            }
-            "2" -> {
-                tareaMadre.obtenerSubtareas().forEach { println(it.obtenerDetalle()) }
             }
         }
     }
+
     private fun mostrarDashboard() {
         val resumen = actividadServicios.obtenerResumenTareas()
         val eventos = actividadServicios.obtenerEventosProximos()
