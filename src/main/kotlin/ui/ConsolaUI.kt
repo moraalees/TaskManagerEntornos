@@ -1,6 +1,10 @@
 package es.prog2425.taskmanager.ui
 
-import es.prog2425.taskmanager.model.*
+import es.prog2425.taskmanager.model.Tarea
+import es.prog2425.taskmanager.model.Estado
+import es.prog2425.taskmanager.model.Actividad
+import es.prog2425.taskmanager.model.Filtro
+
 import es.prog2425.taskmanager.service.ActividadServicios
 
 class ConsolaUI(private val actividadServicios: ActividadServicios) : IEntradaSalida {
@@ -166,36 +170,44 @@ class ConsolaUI(private val actividadServicios: ActividadServicios) : IEntradaSa
             println("No hay tareas disponibles para actualizar.")
             return
         }
+
         println("Tareas disponibles:")
-        tareas.forEach { tarea ->
-            println(tarea.obtenerDetalle())
-        }
+        tareas.forEach { println(it.obtenerDetalle()) }
+
         print("Ingresa el ID de la tarea a actualizar: ")
         val idTarea = readLine()?.toIntOrNull()
         if (idTarea == null) {
             println("❌ Error: Debes ingresar un número válido.")
             return
         }
+
         val tarea = actividadServicios.obtenerTareaPorId(idTarea)
-        if (tarea == null) {
-            println("❌ Error: No existe una TAREA con ID $idTarea (¿Quizás es un evento?)")
-            return
-        }
+            ?: run {
+                println("❌ Error: No existe una TAREA con ID $idTarea (¿Quizás es un evento?)")
+                return
+            }
+
         println("\nEstados disponibles:")
         Estado.entries.forEachIndexed { index, estado ->
             println("${index + 1}. $estado")
         }
+
         print("Selecciona el nuevo estado (1-${Estado.entries.size}): ")
-        when (val opcion = readLine()?.toIntOrNull()) {
-            null -> println("❌ Error: Ingresa un número válido.")
-            !in 1..Estado.entries.size -> println("❌ Error: El número debe estar entre 1 y ${Estado.entries.size}")
-            else -> {
-                val nuevoEstado = Estado.entries[opcion - 1]
-                actividadServicios.cambiarEstadoTarea(tarea, nuevoEstado)
-                println("✅ Estado de la tarea $idTarea actualizado a $nuevoEstado")
-            }
+        val opcion = readLine()?.toIntOrNull()
+        if (opcion == null) {
+            println("❌ Error: Ingresa un número válido.")
+            return
         }
+        if (opcion !in 1..Estado.entries.size) {
+            println("❌ Error: El número debe estar entre 1 y ${Estado.entries.size}")
+            return
+        }
+
+        val nuevoEstado = Estado.entries[opcion - 1]
+        actividadServicios.cambiarEstadoTarea(tarea, nuevoEstado)
+        println("✅ Estado de la tarea $idTarea actualizado a $nuevoEstado")
     }
+
     private fun gestionarSubtareas() {
         println("\n*** Gestión de Subtareas ***")
         val tareas = actividadServicios.listarTareas()

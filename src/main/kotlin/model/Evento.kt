@@ -5,7 +5,9 @@ import java.time.format.DateTimeFormatter
 import java.util.logging.Logger
 
 
-
+/**
+ * @property descripcion
+ */
 class Evento  (
     descripcion: String,
      val fecha: String,
