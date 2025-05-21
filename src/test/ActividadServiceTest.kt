@@ -11,6 +11,7 @@ class ActividadServiceTest : DescribeSpec({
         service.usuarios.add(usuarioEjemplo)
     }
 
+
     describe("filtrarPorTipo") {
         it("debería devolver solo las actividades del tipo especificado") {
             val tarea1 = Tarea("Tarea 1")
