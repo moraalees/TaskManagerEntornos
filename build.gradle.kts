@@ -1,7 +1,8 @@
 plugins {
-    kotlin("jvm") version "2.0.20"
+    kotlin("jvm") version "1.8.22"
     id("org.jetbrains.kotlin.plugin.allopen") version "2.0.20"
     id("io.gitlab.arturbosch.detekt") version "1.23.1"
+    id("org.jetbrains.dokka") version "1.8.10"
 }
 
 group = "es.prog2425.taskmanager"
@@ -25,6 +26,10 @@ dependencies {
     testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
     testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
     testImplementation("io.kotest:kotest-property:$kotestVersion")
+}
+
+tasks.dokkaHtml{
+    outputDirectory.set(buildDir.resolve("dokka"))
 }
 
 tasks.test {

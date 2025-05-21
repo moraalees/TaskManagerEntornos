@@ -6,8 +6,12 @@ import java.util.logging.Logger
 
 
 /**
- * @property descripcion
+@property Evento Esta clase representa un evento, como una reunión o algo que tiene fecha y lugar concreto.
+Hereda de la clase Actividad, así que también tiene una descripción.
+Además, le añado dos propiedades más: la fecha en la que es el evento y la ubicación donde se hace.
+Es útil cuando quiero diferenciar entre tareas normales y eventos con más detalles.
  */
+
 class Evento  (
     descripcion: String,
      val fecha: String,
