@@ -35,3 +35,32 @@ https://github.com/moraalees/TaskManagerEntornos/blob/e35bbfa2c90e70c1af82dbe765
 - **Excepción genérica en Evento**: Se utilizaba una excepción genérica al manejar errores en la clase `Evento`. Reemplacé esta por una excepción más específica: `DateTimeParseException`, mejorando así la precisión del manejo de errores.
 
 https://github.com/moraalees/TaskManagerEntornos/blob/e35bbfa2c90e70c1af82dbe765297a95cc5d0eea/src/main/kotlin/model/Evento.kt#L28-L38
+
+## 4.- Exploración y modificación de una opción de configuración personalizada en Detekt
+
+Además de usar las configuraciones por defecto de Detekt, decidí ajustar una de las reglas para adaptarla mejor a la estructura de mi proyecto. En esta ocasión, me enfoqué en la longitud máxima de línea permitida.
+
+### Opción modificada: `MaxLineLength.maxLineLength`
+
+Esta regla define cuántos caracteres puede tener como máximo una línea de código antes de que sea avisada como un problema. Su objetivo es mejorar la legibilidad del código y aumentar el número de caracteres.
+
+### ¿Cómo cambiarlo?
+
+En el archivo `detekt.yml`, se puede modificar esta regla así:
+
+```yaml
+style:
+  MaxLineLength:
+    active: true
+    maxLineLength: 150
+```
+
+Con esta configuración, el límite de longitud por línea se incrementa de su valor predeterminado (generalmente 120) a 150 caracteres.
+
+### ¿Cómo afecta esto al código y al informe?
+
+**Antes:**  
+Cualquier línea de código que superara los 120 caracteres era reportada como error.
+
+**Después:**  
+Ahora, solo se reportan líneas que superan los 150 caracteres. Esto reduce el número de advertencias innecesarias, especialmente en llamadas a funciones con muchos argumentos o cadenas largas.
