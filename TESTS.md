@@ -55,4 +55,28 @@ Para poder ejecutar correctamente las pruebas unitarias, fue necesario añadir l
 
 ### [`build.gradle.kts`](https://github.com/moraalees/TaskManagerEntornos/blob/Fran/build.gradle.kts)
 
+En cuanto a la implementación de las pruebas, he utilizado una clase basada en `DescribeSpec`, que permite estructurar los tests de forma ordenada y clara. Gracias a `mockk(relaxed = true)`, se crea un repositorio simulado que no necesita definir comportamientos concretos para cada método.
 
+### [`ActividadServiceTest`](https://github.com/moraalees/TaskManagerEntornos/blob/Fran/src/test/ActividadServiceTest.kt)
+
+Para `filtrarPorTipo`, la prueba comprueba que el servicio devuelva únicamente las actividades que coinciden con el tipo proporcionado. También se incluye un test que verifica que pasar un valor `null` lanza la excepción correspondiente.
+
+### [`filtrarPorTipo`](https://github.com/moraalees/TaskManagerEntornos/blob/Fran/src/test/ActividadServiceTest.kt)
+
+En `filtrarPorEstado`, se valida que solo se devuelvan las tareas cuyo estado coincide exactamente con el estado dado. Además, se asegura que cuando no hay coincidencias, el método retorna una lista vacía sin fallos.
+
+### [`filtrarPorEstado`](https://github.com/moraalees/TaskManagerEntornos/blob/Fran/src/test/ActividadServiceTest.kt)
+
+Para el caso de `filtrarPorUsuario`, los tests comprueban si el servicio devuelve correctamente las tareas cuando el nombre del usuario existe en el sistema. También se incluye una prueba para verificar que si no se encuentra el usuario, el método retorna una lista vacía.
+
+### [`filtrarPorUsuario`](https://github.com/moraalees/TaskManagerEntornos/blob/Fran/src/test/ActividadServiceTest.kt)
+
+---
+
+# 5.- Resultados
+
+Tras ejecutar todos los tests en la clase `ActividadServiceTest`, los resultados han sido exitosos. Las pruebas se han completado correctamente en un tiempo aproximado de 8 segundos, como se muestra en la siguiente imagen:
+
+[Resultado](https://github.com/moraalees/TaskManagerEntornos/blob/Fran/images/Captura%20de%20pantalla%202025-05-18%20122616.png)
+
+Esto confirma que las funciones analizadas y probadas responden correctamente tanto en situaciones normales como en casos límite, cumpliendo con las expectativas establecidas en cada caso de uso.
