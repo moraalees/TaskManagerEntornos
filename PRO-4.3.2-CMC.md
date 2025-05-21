@@ -46,9 +46,9 @@ Estsos son los `code smells` que solucioné:
 
 | Code Smell Identificado                           | Patrón de Refactorización Aplicado           | Ubicación del Código                     |
 | ------------------------------------------------- | -------------------------------------------- | ---------------------------------------- |
-| Uso de `Exception` genérica en captura de errores | Replace Exception with Specific              | `crearEvento()` en `ConsolaUI.kt`        |
-| Lógica con `IllegalStateException`                | Replace Exception with `check()` / `error()` | `cambiarEstado()` en `Tarea.kt`          |
-| Lógica condicional compleja con `when`            | Simplify Conditional                         | `cambiarEstadoTarea()` en `ConsolaUI.kt` |
+| Uso de `Exception` genérica en captura de errores | `Replace Exception with Specific`            | `crearEvento()` en `ConsolaUI.kt`        |
+| Lógica con `IllegalStateException`                | `Replace Exception with check() / error()`   | `cambiarEstado()` en `Tarea.kt`          |
+| Lógica condicional compleja con `when`            | `Simplify Conditional`                       | `cambiarEstadoTarea()` en `ConsolaUI.kt` |
 
 
 ### 1.b Teniendo en cuenta aquella funcionalidad que tiene pruebas unitarias, selecciona un patrón de refactorización de los que has aplicado y que están cubierto por los test unitarios. ¿Porque mejora o no mejora tu código? Asegurate de poner enlaces a tu código
