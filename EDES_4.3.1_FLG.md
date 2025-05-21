@@ -64,3 +64,51 @@ Cualquier línea de código que superara los 120 caracteres era reportada como e
 
 **Después:**  
 Ahora, solo se reportan líneas que superan los 150 caracteres. Esto reduce el número de advertencias innecesarias, especialmente en llamadas a funciones con muchos argumentos o cadenas largas.
+
+## Preguntas
+
+## [1]
+
+### 1.a ¿Qué herramienta has usado, y para qué sirve?  
+He utilizado **Detekt**, una herramienta de análisis para proyectos escritos en Kotlin. Sirve para analizar automáticamente el código y detectar errores, malas prácticas o incumplimientos de estilo.
+
+### 1.b ¿Cuáles son sus características principales?  
+Detekt puede encontrar funciones demasiado largas, clases con demasiadas responsabilidades, nombres de variables o funciones mal definidos, y problemas de formato. Además, es personalizable, por lo que puedes adaptar sus reglas a lo que necesites en tu proyecto.
+
+### 1.c ¿Qué beneficios obtengo al utilizar dicha herramienta?  
+Con Detekt puedes mejorar la calidad del código, hacer que sea más legible y fácil de mantener, y evitar errores comunes.
+
+---
+
+## [2]
+
+### 2.a De los errores/problemas que la herramienta ha detectado y te ha ayudado a solucionar, ¿cuál es el que te ha parecido que ha mejorado más tu código?  
+El que más ha mejorado mi código ha sido el de tener **demasiados `return`** dentro de una misma función. Reestructuré el código usando bloques `if/else` y así quedó mucho más ordenado y fácil de seguir.
+
+### 2.b ¿La solución que se le ha dado al error/problema la has entendido y te ha parecido correcta?  
+Sí, la solución me pareció clara y acertada. Entendí que usar muchos `return` puede dificultar la lectura del código y que al organizarlos mejor, el flujo es más comprensible.
+
+### 2.c ¿Por qué se ha producido ese error/problema?  
+El error surgió porque la función tenía demasiados caminos de salida (`return`), lo cual hace que el código sea más difícil de leer y mantener. Detekt lo señala como mala práctica para ayudar a programar con un código más limpio.
+
+---
+
+## [3]
+
+### 3.a ¿Qué posibilidades de configuración tiene la herramienta?  
+Detekt permite configurar muchas de sus reglas: se puede ajustar la longitud máxima de líneas, el número de funciones por clase, el formato de nombres, qué reglas están activas o no, entre otras opciones.
+
+### 3.b De esas posibilidades de configuración, ¿cuál has configurado para que sea distinta a la que viene por defecto?  
+He modificado la regla **MaxLineLength**, que define cuántos caracteres puede tener como máximo una línea. Por defecto está en 120, y yo lo aumenté a **150 caracteres**.
+
+### 3.c Pon un ejemplo de cómo ha impactado en tu código, enlazando al código anterior al cambio, y al posterior al cambio.  
+Al modificar la configuración de la longitud máxima de línea de 120 a 150 caracteres, el análisis de Detekt pasó de mostrar **34 errores** a **22**. Se eliminaron **12 avisos** relacionados con ese límite, lo que hizo que el informe fuera más limpio y centrado en errores realmente importantes.
+
+---
+
+## [4]
+
+### ¿Qué conclusiones sacas después del uso de estas herramientas?  
+Detekt me ha parecido una herramienta muy útil para mejorar la calidad del código. Me ha ayudado a encontrar y corregir errores que sin el uso de esta herramienta habría pasado por alto. Además, permite adaptar las reglas a las necesidades del proyecto, lo que hace que el análisis sea más eficiente y menos molesto. En general, creo que es una buena forma de aprender a programar mejor y mantener un código ordenado desde el principio.
+
+
