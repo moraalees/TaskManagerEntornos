@@ -2,6 +2,7 @@ plugins {
     kotlin("jvm") version "2.0.20"
     id("org.jetbrains.kotlin.plugin.allopen") version "2.0.20"
     id("io.gitlab.arturbosch.detekt") version "1.23.6"
+    id("org.jetbrains.dokka") version "1.8.10"
 }
 
 group = "es.prog2425.taskmanager"
@@ -24,8 +25,12 @@ tasks.test {
     useJUnitPlatform()
 }
 
+tasks.dokkaHtml {
+    outputDirectory.set(buildDir.resolve("dokka"))
+}
+
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(17)
 }
 
 detekt {
