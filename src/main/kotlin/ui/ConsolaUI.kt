@@ -121,37 +121,40 @@ class ConsolaUI(private val actividadServicios: ActividadServicios) : IEntradaSa
     private fun asignarTareaAUsuario() {
         println("\n*** Asignar tarea a usuario ***")
         val tareas = actividadServicios.listarTareas()
+
         if (tareas.isEmpty()) {
             println("No hay tareas disponibles para asignar.")
-            return
-        }
-        println("Tareas disponibles:")
-        tareas.forEach { tarea ->
-            println(tarea.obtenerDetalle())
-        }
-        print("Ingresa el ID de la tarea a asignar: ")
-        val idTarea = readLine()?.toIntOrNull()
-        if (idTarea == null) {
-            println("❌ Error: Debes ingresar un número válido.")
-            return
-        }
-        val tarea = tareas.find { it.id == idTarea }
-        if (tarea == null) {
-            println("❌ Error: No existe una TAREA con ID $idTarea (¿Es un evento?)")
-            return
-        }
-        print("Ingresa el nombre del usuario: ")
-        val nombreUsuario = readLine()?.trim().orEmpty()
-        if (nombreUsuario.isBlank()) {
-            println("❌ Error: El nombre no puede estar vacío.")
-            return
-        }
-        try {
-            val usuario = actividadServicios.obtenerOCrearUsuario(nombreUsuario)
-            actividadServicios.asignarUsuarioATarea(tarea, usuario)
-            println("✅ Tarea '$idTarea - ${tarea.descripcion}' asignada a ${usuario.nombre}")
-        } catch (e: Exception) {
-            println("❌ Error al asignar: ${e.message}")
+        } else {
+            println("Tareas disponibles:")
+            tareas.forEach { tarea ->
+                println(tarea.obtenerDetalle())
+            }
+
+            print("Ingresa el ID de la tarea a asignar: ")
+            val idTarea = readLine()?.toIntOrNull()
+
+            val tarea = idTarea?.let { id -> tareas.find { it.id == id } }
+
+            if (idTarea == null) {
+                println(" Error: Debes ingresar un número válido.")
+            } else if (tarea == null) {
+                println(" Error: No existe una TAREA con ID $idTarea (¿Es un evento?)")
+            } else {
+                print("Ingresa el nombre del usuario: ")
+                val nombreUsuario = readLine()?.trim().orEmpty()
+
+                if (nombreUsuario.isBlank()) {
+                    println(" Error: El nombre no puede estar vacío.")
+                } else {
+                    try {
+                        val usuario = actividadServicios.obtenerOCrearUsuario(nombreUsuario)
+                        actividadServicios.asignarUsuarioATarea(tarea, usuario)
+                        println(" Tarea '$idTarea - ${tarea.descripcion}' asignada a ${usuario.nombre}")
+                    } catch (e: Exception) {
+                        println(" Error al asignar: ${e.message}")
+                    }
+                }
+            }
         }
     }
     private fun cambiarEstadoTarea() {
@@ -194,31 +197,47 @@ class ConsolaUI(private val actividadServicios: ActividadServicios) : IEntradaSa
     private fun gestionarSubtareas() {
         println("\n*** Gestión de Subtareas ***")
         val tareas = actividadServicios.listarTareas()
+
+        if (tareas.isEmpty()) {
+            println("No hay tareas disponibles.")
+            return
+        }
+
         tareas.forEach { println("${it.id}: ${it.descripcion} (${it.obtenerSubtareas().size} subtareas)") }
         print("Selecciona el ID de la tarea madre: ")
-        val idMadre = readLine()?.toIntOrNull() ?: run {
+        val idMadre = readLine()?.toIntOrNull()
+
+        if (idMadre == null) {
             println("ID inválido")
-            return
-        }
-        val tareaMadre = tareas.find { it.id == idMadre } ?: run {
-            println("Tarea no encontrada")
-            return
-        }
-        println("\n1. Agregar subtarea")
-        println("2. Listar subtareas")
-        when (readLine()) {
-            "1" -> {
-                print("Descripción de la subtarea: ")
-                val desc = readLine()?.takeIf { it.isNotBlank() } ?: run {
-                    println("Descripción vacía")
-                    return
+        } else {
+            val tareaMadre = tareas.find { it.id == idMadre }
+            if (tareaMadre == null) {
+                println("Tarea no encontrada")
+            } else {
+                println("\n1. Agregar subtarea")
+                println("2. Listar subtareas")
+                when (readLine()) {
+                    "1" -> {
+                        print("Descripción de la subtarea: ")
+                        val desc = readLine()?.takeIf { it.isNotBlank() }
+                        if (desc == null) {
+                            println("Descripción vacía")
+                        } else {
+                            val subtarea = Tarea.creaInstancia(desc)
+                            tareaMadre.agregarSubtarea(subtarea)
+                            println("✅ Subtarea agregada")
+                        }
+                    }
+                    "2" -> {
+                        val subtareas = tareaMadre.obtenerSubtareas()
+                        if (subtareas.isEmpty()) {
+                            println("No hay subtareas registradas.")
+                        } else {
+                            subtareas.forEach { println(it.obtenerDetalle()) }
+                        }
+                    }
+                    else -> println("Opción no válida.")
                 }
-                val subtarea = Tarea.creaInstancia(desc)
-                tareaMadre.agregarSubtarea(subtarea)
-                println("✅ Subtarea agregada")
-            }
-            "2" -> {
-                tareaMadre.obtenerSubtareas().forEach { println(it.obtenerDetalle()) }
             }
         }
     }
