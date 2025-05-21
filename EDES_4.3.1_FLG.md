@@ -30,7 +30,7 @@ https://github.com/moraalees/TaskManagerEntornos/blob/e35bbfa2c90e70c1af82dbe765
 
 - **Demasiados `return` en gestionarSubtarea**: Dentro de la función `gestionarSubtarea`, salió un error debido a un exceso de `return`. Refactoricé el código para reducir su número y mejorar la legibilidad.
 
-https://github.com/moraalees/TaskManagerEntornos/blob/e35bbfa2c90e70c1af82dbe765297a95cc5d0eea/src/main/kotlin/ui/ConsolaUI.kt#L195-L225
+https://github.com/moraalees/TaskManagerEntornos/blob/e35bbfa2c90e70c1af82dbe765297a95cc5d0eea/src/main/kotlin/ui/ConsolaUI.kt#L195-L226
 
 - **Excepción genérica en Evento**: Se utilizaba una excepción genérica al manejar errores en la clase `Evento`. Reemplacé esta por una excepción más específica: `DateTimeParseException`, mejorando así la precisión del manejo de errores.
 
