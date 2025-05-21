@@ -18,9 +18,11 @@ Una vez revisados los resultados del análisis realizado con Detekt, decidí cor
 
 - **Filtro como objeto**: La clase `Filtro` contenía únicamente funciones, por lo que lo más adecuado era convertirla en un `object` en lugar de una clase.
 
-https://github.com/moraalees/TaskManagerEntornos/blob/e35bbfa2c90e70c1af82dbe765297a95cc5d0eea/src/main/kotlin/model/Filtro.kt#L3-L16
+https://github.com/moraalees/TaskManagerEntornos/blob/e35bbfa2c90e70c1af82dbe765297a95cc5d0eea/src/main/kotlin/model/Filtro.kt#L5-L18
 
 - **Constructor vacío en Filtro**: Detecté que `Filtro` tenía un constructor sin contenido, lo cual no era necesario. Por ello, eliminé dicho constructor para simplificar la clase.
+
+https://github.com/moraalees/TaskManagerEntornos/blob/e35bbfa2c90e70c1af82dbe765297a95cc5d0eea/src/main/kotlin/model/Filtro.kt#L5-L18
 
 - **Demasiados `return` en asignarTareaAUsuario**: El analizador marcó como mala práctica el uso excesivo de sentencias `return` en la función `asignarTareaAUsuario()`. Para corregirlo, agrupé las condiciones usando estructuras `if/else`, lo que permitió reducir los `return` y hacer el código más claro.
 
