@@ -26,7 +26,7 @@ En búsqueda de un análisis más preciso, recurrí al uso del *linter* **Detekt
 
 Tras revisar los puntos detectados, seleccioné tres de ellos para aplicar refactorización efectiva.
 
-Para validar los cambios introducidos, desarrollé una clase de pruebas denominada `RefactorTest`, donde verifiqué que el comportamiento funcional no se viera afectado por las modificaciones realizadas.
+Para validar los cambios introducidos, desarrollé una clase de pruebas denominada `Test`, donde verifiqué que el comportamiento funcional no se viera afectado por las modificaciones realizadas.
 
 ### 2. Detalles de Refactorizaciones
 
