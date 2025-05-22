@@ -37,6 +37,7 @@ Para validar los cambios introducidos, desarrollé una clase de pruebas denomina
 | 3. Rediseño de clase sin estado      | Clase con solo funciones utilitarias       | Conversión a objeto Singleton (`object`)           | `Filtro.kt`      |
 
 Estas acciones permitieron reducir la complejidad del código, mejorar su estructura y facilitar su comprensión.
+["Test"] https://github.com/moraalees/TaskManagerEntornos/blob/Fran/src/test/Test.kt
 
 ---
 
