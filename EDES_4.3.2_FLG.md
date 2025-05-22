@@ -44,14 +44,37 @@ Estas acciones permitieron reducir la complejidad del código, mejorar su estruc
 ## Preguntas
 ### [1]
 - 1.a ¿Qué code smell y patrones de refactorización has aplicado?
+He identificado varios *code smells*, como capturas de excepciones genéricas, lógica con muchos `return`, clases utilitarias mal definidas y propiedades sin uso. Para cada uno, apliqué patrones de refactorización como:  
+- **Replace Generic with Specific Catch**  
+- **Simplify Conditional**  
+- **Convert Class to Singleton**  
+- **Remove Dead Code**
+
 - 1.b Teniendo en cuenta aquella funcionalidad que tiene pruebas unitarias, selecciona un patrón de refactorización de los que has aplicado y que están cubierto por los test unitarios. ¿Porque mejora o no mejora tu código? Asegurate de poner enlaces a tu código
+Selecciono el patrón **Replace Exception with Specific Exception**, perteneciente a la clase `crearTarea()`.
+
+
+```kotlin
+catch (e: IllegalArgumentException) {
+    println("Error de validación: ${e.message}")
+} catch (e: Exception) {
+    println("Error inesperado al crear la tarea: ${e.message}")
+}
+```
+
+Este cambio mejora el código porque hace que el manejo de errores sea más claro y controlado, a la vez que mejora la legibilidad del código.
 
 ---
 
 ### [2]
 - 2.a Describe el proceso que sigues para asegurarte que la refactorización no afecta a código que ya tenias desarrollado.
+Después de hacer la refactorización, ejecuto todos los **tests unitarios** para comprobar que todo sigue funcionando como debe. También reviso manualmente que el comportamiento siga siendo el mismo, sobre todo en los métodos modificados.
 
 ---
 
 ### [3]
 - 3.a ¿Que funcionalidad del IDE has usado para aplicar la refactorización seleccionada? Si es necesario, añade capturas de pantalla para identificar la funcionalidad.
+Usé varias funcionalidades del IntelliJ IDEA para aplicar refactorizaciones. En concreto, utilicé:  
+- `Alt + Enter` para sugerencias rápidas  
+- `Code > Reformat Code` para limpieza  
+- `Refactor > Rename` o `Refactor > Extract Method` cuando hice simplificación de condiciones
